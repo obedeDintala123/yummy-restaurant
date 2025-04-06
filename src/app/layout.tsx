@@ -15,6 +15,8 @@ export const metadata: Metadata = {
   keywords: ["restaurant", "food", "menu", "order", "delivery"],
   icons: {
     icon: "/icon.png",
+    shortcut: "/icon.png",
+    apple: "/icon.png",
   },
   openGraph: {
     title: "Yummy Restaurant",
