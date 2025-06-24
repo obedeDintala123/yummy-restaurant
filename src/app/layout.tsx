@@ -14,13 +14,13 @@ export const metadata: Metadata = {
 
 
   icons: {
-    icon: "/yummy-logo.svg",                        
-    shortcut: "/yummy-logo.svg",         
-    apple: "/yummy-logo.svg",          
+    icon: "/icon.svg",                        
+    shortcut: "/icon.svg",         
+    apple: "/icon.svg",          
     other: [
       {
         rel: "mask-icon",
-        url: "/yummy-logo.svg",
+        url: "/icon.svg",
         color: "#ff6600",                         
       },
     ],
