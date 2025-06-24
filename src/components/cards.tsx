@@ -44,19 +44,33 @@ const OrderCard = ({ orderCard }: OrderCardProps) => {
     )
 }
 
-const ProductCard = () => {
+interface ProductCardProps {
+    src: string;
+    title: string;
+    description: string;
+    price: number;
+}
+
+const ProductCard = ({ src, title, description, price }: ProductCardProps) => {
     return (
-        <Card>
-            <CardHeader>
-                <CardTitle>Card Title</CardTitle>
-                <CardDescription>Card Description</CardDescription>
-                <CardAction>Card Action</CardAction>
+        <Card className="mt-4 w-full sm:w-[90%] md:w-[45%] lg:w-[24%] p-0">
+            <CardHeader className="p-0">
+                <div className="relative w-full h-72 flex items-center justify-center bg-white">
+                    <Image
+                        src={src}
+                        alt="product1"
+                        fill
+                        className="rounded-md object-fill"
+                    />
+                </div>
             </CardHeader>
-            <CardContent>
-                <p>Card Content</p>
+            <CardContent className="flex flex-col gap-3">
+                <CardTitle className="text-xl font-montserrat ">{title}</CardTitle>
+                <CardDescription>{description}</CardDescription>
             </CardContent>
-            <CardFooter>
-                <p>Card Footer</p>
+            <CardFooter className="flex justify-between p-4">
+                <span className=" font-montserrat text-2xl font-semibold">{price}$</span>
+                <button className="bg-yummy-primary px-6 py-2 rounded-md text-white font-montserrat font-semibold cursor-pointer text-base">Order Now</button>
             </CardFooter>
         </Card>
     )
