@@ -1,3 +1,5 @@
+"use client"
+
 import { Header } from "@/components/header";
 import { HeroSlider } from "@/components/hero-slider";
 import { Button } from "@/components/ui/button";
@@ -12,8 +14,208 @@ import {
 } from "lucide-react";
 import { FaqAccordion } from "@/components/faq-accordion";
 import { FloatingButton } from "@/components/floating-button";
+import { useRef, useEffect, useState } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+gsap.registerPlugin(ScrollTrigger);
 
 export default function Home() {
+
+  const headerRef = useRef<HTMLDivElement>(null);
+  const aboutTextRef = useRef<HTMLDivElement>(null);
+  const aboutListRef = useRef<HTMLUListElement>(null);
+  const aboutImageRef = useRef<HTMLDivElement>(null);
+  const storyTextRef = useRef<HTMLDivElement>(null);
+  const storyImageRef = useRef<HTMLDivElement>(null);
+  const cardsContainerRef = useRef<HTMLDivElement>(null);
+  const reserveTitleRef = useRef<HTMLHeadingElement>(null);
+  const reserveSubtitleRef = useRef<HTMLSpanElement>(null);
+  const reserveButtonRef = useRef<HTMLButtonElement>(null);
+  const faqGridRef = useRef<HTMLDivElement>(null);
+  const faqAccordionRef = useRef<HTMLDivElement>(null);
+
+
+
+  useEffect(() => {
+    if (headerRef.current) {
+      gsap.from(headerRef.current, {
+        y: -60,
+        opacity: 0,
+        duration: 0.8,
+        ease: "power2.out",
+      });
+    }
+
+    // Hero-text (hero-title e hero-button) depois do header
+    gsap.from(".hero-title", {
+      y: 50,
+      opacity: 0,
+      duration: 1,
+      delay: 0.5,
+      ease: "power2.out",
+    });
+    gsap.from(".hero-button", {
+      y: 50,
+      opacity: 0,
+      duration: 1,
+      delay: 0.8,
+      ease: "power2.out",
+    });
+
+    // Hero-image por último
+    gsap.from(".hero-image", {
+      scale: 1.1,
+      opacity: 0,
+      delay: 1.1,
+      duration: 1,
+      ease: "power2.out",
+    });
+
+
+    if (aboutTextRef.current) {
+      gsap.from(aboutTextRef.current, {
+        opacity: 0,
+        y: 50,
+        duration: 1,
+        scrollTrigger: {
+          trigger: aboutTextRef.current,
+          start: "top 80%",
+          toggleActions: "play reverse play reverse", // <-- aqui
+        },
+      });
+    }
+    if (aboutListRef.current) {
+      gsap.from(aboutListRef.current.children, {
+        opacity: 0,
+        x: -40,
+        stagger: 0.2,
+        duration: 0.8,
+        scrollTrigger: {
+          trigger: aboutListRef.current,
+          start: "top 85%",
+          toggleActions: "play reverse play reverse", // <-- aqui
+        },
+      });
+    }
+    if (aboutImageRef.current) {
+      gsap.from(aboutImageRef.current, {
+        opacity: 0,
+        x: 60,
+        duration: 1,
+        scrollTrigger: {
+          trigger: aboutImageRef.current,
+          start: "top 80%",
+          toggleActions: "play reverse play reverse", // <-- aqui
+        },
+      });
+    }
+
+    if (storyTextRef.current) {
+      gsap.from(storyTextRef.current, {
+        opacity: 0,
+        y: 50,
+        duration: 1,
+        scrollTrigger: {
+          trigger: storyTextRef.current,
+          start: "top 80%",
+          toggleActions: "play reverse play reverse",
+        },
+      });
+    }
+    if (storyImageRef.current) {
+      gsap.from(storyImageRef.current, {
+        opacity: 0,
+        x: 60,
+        duration: 1,
+        scrollTrigger: {
+          trigger: storyImageRef.current,
+          start: "top 80%",
+          toggleActions: "play reverse play reverse",
+        },
+      });
+    }
+
+    if (cardsContainerRef.current) {
+      gsap.from(cardsContainerRef.current.children, {
+        opacity: 0,
+        x: 100, // Vem da direita para a esquerda
+        stagger: 0.2,
+        duration: 1.5,
+        scrollTrigger: {
+          trigger: cardsContainerRef.current,
+          start: "top 85%",
+          toggleActions: "play reverse play reverse",
+        },
+      });
+    }
+
+    if (reserveTitleRef.current) {
+      gsap.from(reserveTitleRef.current, {
+        opacity: 0,
+        y: 60,
+        duration: 1,
+        scrollTrigger: {
+          trigger: reserveTitleRef.current,
+          start: "top 80%",
+          toggleActions: "play reverse play reverse",
+        },
+      });
+    }
+    if (reserveSubtitleRef.current) {
+      gsap.from(reserveSubtitleRef.current, {
+        opacity: 0,
+        y: 60,
+        delay: 0.2,
+        duration: 1,
+        scrollTrigger: {
+          trigger: reserveSubtitleRef.current,
+          start: "top 80%",
+          toggleActions: "play reverse play reverse",
+        },
+      });
+    }
+    if (reserveButtonRef.current) {
+      gsap.from(reserveButtonRef.current, {
+        opacity: 0,
+        y: 60,
+        delay: 0.4,
+        duration: 1,
+        scrollTrigger: {
+          trigger: reserveButtonRef.current,
+          start: "top 80%",
+          toggleActions: "play reverse play reverse",
+        },
+      });
+    }
+
+    if (faqGridRef.current) {
+      gsap.from(faqGridRef.current.children, {
+        opacity: 0,
+        x: 100,
+        stagger: 0.2,
+        duration: 1,
+        scrollTrigger: {
+          trigger: faqGridRef.current,
+          start: "top 85%",
+          toggleActions: "play reverse play reverse",
+        },
+      });
+    }
+
+    if (faqAccordionRef.current) {
+      gsap.from(faqAccordionRef.current.children, {
+        opacity: 0,
+        y: 40,
+        stagger: 0.15,
+        duration: 0.7,
+        scrollTrigger: {
+          trigger: faqAccordionRef.current,
+          start: "top 85%",
+          toggleActions: "play reverse play reverse",
+        },
+      });
+    }
+  }, []);
 
   const products = [
     { title: "Produto 1", src: "/product1.jpg", description: "Produto 1", price: 24 },
@@ -33,31 +235,31 @@ export default function Home() {
   ]
 
   return (
-    <>
+    <div className="overflow-x-hidden">
       <div className="min-h-screen">
-        <Header />
+        <Header ref={headerRef} />
 
         <FloatingButton />
 
         <article className="grid grid-cols-[30%_70%] px-20 mt-10">
           <section className="flex flex-col gap-10">
-            <h1 className="text-7xl font-semibold leading-24 text-yummy-terciary">Enjoy Your Healthy Delicious Food</h1>
+            <h1 className="text-7xl font-semibold leading-24 text-yummy-terciary hero-title">Enjoy Your Healthy Delicious Food</h1>
 
-            <div className="flex gap-10">
+            <div className="flex gap-10 hero-button">
               <Button className="w-2/6 py-6 rounded-full bg-yummy-primary font-semibold">Menu</Button>
               <Button variant={"outline"} className="w-2/6 py-6 rounded-full text-yummy-terciary bg-transparent font-semibold">Book a table</Button>
             </div>
           </section>
 
           <section className="flex justify-end w-full items-center">
-            <HeroSlider />
+            <HeroSlider className="hero-image" />
           </section>
         </article>
       </div>
 
       <section className="flex flex-col md:flex-row items-center gap-8 px-6 md:px-12 py-12 bg-yummy-secondary">
         {/* Imagem */}
-        <div className="relative w-full max-w-3xl h-[450px] flex-shrink-0">
+        <div ref={aboutImageRef} className="relative w-full max-w-3xl h-[450px] flex-shrink-0">
           <Image
             src="/about-image1.jpg"
             alt="Interior of Yummy Restaurant"
@@ -66,7 +268,7 @@ export default function Home() {
           />
         </div>
 
-        <div className="w-full md:w-1/2 text-gray-800">
+        <div ref={aboutTextRef} className="w-full md:w-1/2 text-gray-800">
           <h2 className="text-4xl mb-4 font-montserrat font-semibold text-yummy-terciary">About Us</h2>
           <p className="text-lg mb-6 leading-relaxed text-justify font-montserrat text-[#212121]">
             Welcome to <strong>Yummy Restaurant</strong>! We are passionate about
@@ -75,7 +277,7 @@ export default function Home() {
             with excellence!
           </p>
 
-          <ul className="space-y-5 text-base">
+          <ul ref={aboutListRef} className="space-y-5 text-base">
             <li className="flex items-start gap-3">
               <Leaf className="text-yummy-primary w-5 h-5 mt-1" />
               <span>We prioritize locally sourced ingredients for freshness and flavor.</span>
@@ -97,13 +299,13 @@ export default function Home() {
       </section>
 
       <section className="flex flex-col md:flex-row items-center gap-8 px-6 md:px-12 py-12 bg-yummy-secondary">
-        <div className="w-full md:w-1/2 text-gray-800">
+        <div ref={storyTextRef} className="w-full md:w-1/2 text-gray-800">
           <h2 className="text-5xl mb-4 font-montserrat font-semibold text-yummy-terciary">Our Story</h2>
           <p className="text-lg mb-6 leading-8 text-justify font-montserrat text-[#212121]">
             Founded in 2010, Yummy Restaurant began as a small family business with a big dream: to bring healthy, flavorful meals to our community. Over the years, our passion for quality and hospitality has helped us grow, but our values remain the same. Every dish is a reflection of our journey, our culture, and our commitment to you. Join us and be part of our story!
           </p>
         </div>
-        <div className="relative w-full max-w-3xl h-[450px] flex-shrink-0">
+        <div ref={storyImageRef} className="relative w-full max-w-3xl h-[450px] flex-shrink-0">
           <Image
             src="/about-image2.jpg"
             alt="Our restaurant history"
@@ -119,7 +321,7 @@ export default function Home() {
           <ArrowRight size={36} color="#3a2d2d" />
         </div>
 
-        <div className="mt-10 flex flex-wrap justify-between">
+        <div ref={cardsContainerRef} className="mt-10 flex flex-wrap justify-between">
           {products.map((product, index) => (
             <ProductCard
               key={index}
@@ -136,19 +338,31 @@ export default function Home() {
         className="min-h-screen flex flex-col gap-10 justify-center items-center w-full bg-cover bg-center"
         style={{ backgroundImage: `linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url("/reserve-table.jpg")` }}
       >
+        <h1
+          ref={reserveTitleRef}
+          className="text-6xl font-montserrat font-semibold text-white"
+        >
+          Reserve your table
+        </h1>
 
-        <h1 className="text-6xl font-montserrat font-semibold text-white">Reserve your table</h1>
+        <span
+          ref={reserveSubtitleRef}
+          className="text-5xl text-white font-light"
+        >
+          Book now for an unforgettable meal.
+        </span>
 
-        <span className="text-5xl text-white font-light">Book now for an unforgettable meal.</span>
-
-        <Button className="w-1/8 py-6 rounded-full bg-yummy-primary font-semibold cursor-pointer transform transition hover:scale-105 hover:bg-yummy-primary">Make a reservation</Button>
-
+        <Button
+          ref={reserveButtonRef}
+          className="w-1/8 py-6 rounded-full bg-yummy-primary font-semibold cursor-pointer transform transition animate-bounce"
+        >
+          Make a reservation
+        </Button>
       </section>
 
       <section className="mt-20 px-20 min-h-screen flex flex-col">
         <h2 className="text-5xl font-semibold text-yummy-terciary">Frequently asked questions</h2>
-
-        <div className="mt-20 grid grid-cols-[50%_50%] h-full flex-1">
+        <div ref={faqGridRef} className="mt-20 grid grid-cols-[50%_50%] h-full flex-1">
           <Image
             src={"/model.png"}
             width={500}
@@ -156,8 +370,9 @@ export default function Home() {
             alt="model"
             className="h-full"
           />
-
-          <FaqAccordion />
+          <div ref={faqAccordionRef} className="w-full">
+            <FaqAccordion />
+          </div>
         </div>
       </section>
 
@@ -193,6 +408,6 @@ export default function Home() {
           <span className="text-center text-sm">© 2025 yummy .All rights reserved</span>
         </div>
       </footer>
-    </>
+    </div>
   )
 }

@@ -3,7 +3,7 @@ import Link from "next/link";
 import { ChevronDown, Search, ShoppingBag } from "lucide-react";
 import { Button } from "./ui/button";
 
-export const Header = () => {
+export const Header = ({ ...props }: React.ComponentPropsWithRef<"div">) => {
 
     const navOption = [
         {
@@ -33,7 +33,7 @@ export const Header = () => {
     ];
 
     return (
-        <header className="flex items-center justify-between w-full px-20 py-10">
+        <header className="flex items-center justify-between w-full px-20 py-10" {...props}>
             <Image src={"/yummy-logo.svg"} alt="Logo" width={130} height={130}></Image>
             <nav className="flex gap-12">
                 {
@@ -48,11 +48,11 @@ export const Header = () => {
 
             <div className="flex items-center gap-10">
                 <button title="search" className="cursor-pointer">
-                    <Search size={24} color="#3a2d2d"/>
+                    <Search size={24} color="#3a2d2d" />
                 </button>
 
                 <button title="cart" className="cursor-pointer">
-                    <ShoppingBag size={24} color="#3a2d2d"/>
+                    <ShoppingBag size={24} color="#3a2d2d" />
                 </button>
             </div>
 

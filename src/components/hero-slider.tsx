@@ -3,8 +3,9 @@
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
+import { cn } from "@/lib/utils";
 
-export const HeroSlider = () => {
+export const HeroSlider = ({ className, ...props }: React.ComponentPropsWithRef<"div">) => {
     const images = [
         "/herosection-image1.svg",
         "/herosection-image2.svg",
@@ -83,7 +84,7 @@ export const HeroSlider = () => {
     }, []);
 
     return (
-        <div className="flex flex-col items-center justify-center h-[400px] w-[400px] relative">
+        <div className={cn("flex flex-col items-center justify-center h-[400px] w-[400px] relative", className)} {...props}>
             {images.map((src, i) => (
                 <div
                     key={i}
