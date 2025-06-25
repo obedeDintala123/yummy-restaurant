@@ -53,7 +53,7 @@ interface ProductCardProps {
 
 const ProductCard = ({ src, title, description, price }: ProductCardProps) => {
     return (
-        <Card className="mt-4 w-full sm:w-[90%] md:w-[45%] lg:w-[24%] p-0">
+        <Card className="mt-4 w-full sm:w-[90%] md:w-[45%] lg:w-full p-0">
             <CardHeader className="p-0">
                 <div className="relative w-full h-72 flex items-center justify-center bg-white">
                     <Image
