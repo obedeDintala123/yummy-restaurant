@@ -12,7 +12,6 @@ export const metadata: Metadata = {
   description:
     "Discover the best in modern cuisine with Yummy Restaurant. Digital menu, fast ordering, and an unforgettable dining experience.",
 
-
   icons: {
     icon: "/icon.svg",                        
     shortcut: "/icon.svg",         
@@ -40,11 +39,11 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Yummy Restaurant 🍽️",
     description: "Digital menu with delicious meals and a great user experience.",
-    url: "https://yummyrestaurant.com",
+    url: "https://yummy-restaurant-five.vercel.app",
     siteName: "Yummy Restaurant",
     images: [
       {
-        url: "/yummy-logo.svg", 
+        url: "/icon.svg", 
         width: 1200,
         height: 630,
         alt: "Yummy Restaurant Open Graph Banner",
@@ -60,7 +59,7 @@ export const metadata: Metadata = {
     description: "Tasty food, fast service, and digital convenience.",
     site: "@yummyrestaurant",
     creator: "@yummyrestaurant",
-    images: ["/yummy-logo.svg"],
+    images: ["/ico.svg"],
   },
 
   authors: [{ name: "Yummy Dev Team", url: "https://yummyrestaurant.com" }],
