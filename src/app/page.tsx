@@ -253,13 +253,6 @@ export default function Home() {
     { title: "Social", options: ["Instagram", "Facebook", "TikTok"] },
   ];
 
-  useEffect(() => {
-    document.body.classList.add("overflow-hidden");
-    return () => {
-      document.body.classList.remove("overflow-hidden");
-    };
-  }, []);
-
   return (
     <div className="relative overflow-x-hidden">
 
