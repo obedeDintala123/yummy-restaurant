@@ -263,30 +263,32 @@ export default function Home() {
 
       {/* Conteúdo da página */}
       <div className={loading ? "pointer-events-none select-none blur-sm" : ""}>
-        <div className="overflow-x-hidden">
+        <div>
+
+          {/*Hero-Section*/}
           <div className="min-h-screen">
             <Header ref={headerRef} />
 
             <FloatingButton />
 
-            <article className="grid grid-cols-[30%_70%] px-20 mt-10">
+            <article className="grid grid-cols-1 md:grid-cols-[30%_70%] px-6 md:px-20 mt-10">
               <section className="flex flex-col gap-10">
-                <h1 className="text-7xl font-semibold leading-24 text-yummy-terciary hero-title">Enjoy Your Healthy Delicious Food</h1>
+               <h1 className="text-3xl md:text-7xl font-semibold leading-12 md:leading-24 text-yummy-terciary hero-title text-center md:text-start ">Enjoy Your Healthy Delicious Food</h1>
 
-                <div className="flex gap-10 hero-button">
+                <div className="flex justify-center md:justify-start gap-10 hero-button">
                   <Button className="w-2/6 py-6 rounded-full bg-yummy-primary font-semibold">Menu</Button>
-                  <Button variant={"outline"} className="w-2/6 py-6 rounded-full text-yummy-terciary bg-transparent font-semibold">Book a table</Button>
+                  <Button variant={"outline"} className="bg-white w-2/6 py-6 rounded-full text-yummy-terciary font-semibold text-xs md:text-base">Book a table</Button>
                 </div>
               </section>
 
-              <section className="flex justify-end w-full items-center">
+              <section className="-z-50 md:z-10 flex justify-end w-full items-center">
                 <HeroSlider className="hero-image" />
               </section>
             </article>
           </div>
 
+          {/*About-Us Section*/}
           <section className="flex flex-col md:flex-row items-center gap-8 px-6 md:px-12 py-12 bg-yummy-secondary" id="about">
-            {/* Imagem */}
             <div ref={aboutImageRef} className="relative w-full max-w-3xl h-[450px] flex-shrink-0">
               <Image
                 src="/about-image1.jpg"
