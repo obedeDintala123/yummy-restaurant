@@ -33,7 +33,7 @@ export function AppSidebar() {
                 <Image
                     src="/yummy-logo.svg"
                     alt="Yummy Logo"
-                    {...screen === "mobile" ? { width: 60, height: 60 } : { width: 100, height: 100 }}
+                    {...screen === "mobile" ? { width: 90, height: 90 } : { width: 100, height: 100 }}
                 />
             </SidebarHeader>
             <SidebarContent>
