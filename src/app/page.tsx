@@ -440,7 +440,7 @@ export default function Home() {
           </section>
 
           <footer className="min-h-[40vh] px-6 md:px-20 bg-yummy-secondary flex flex-col gap-2">
-            <div className="flex flex-col gap-10 md:gap-0 md:flex-row justify-between items-start py-5 md:py-16 ">
+            <div className="flex flex-col gap-10 md:gap-0 md:flex-row justify-between items-start py-8 md:py-16 ">
               <Image
                 src={"yummy-logo.svg"}
                 {...screen === "mobile" ? { width: 120, height: 120 } : { width: 130, height: 130 }}
