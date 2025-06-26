@@ -9,7 +9,7 @@ const MenuNav = ({ setMenuOpen }: { setMenuOpen: (open: boolean) => void }) => {
     const navOption = [
         { src: "/", name: "Home", icon: "" },
         { src: "#about", name: "About Us", icon: "" },
-        { src: "/menu", name: "Menu", icon: "" },
+        { src: "/dashboard/menu", name: "Menu", icon: "" },
         { src: "/services", name: "Services", icon: <ChevronDown size={24} strokeWidth={1.5} /> },
     ];
 
@@ -53,7 +53,7 @@ export const Header = ({ ...props }: React.ComponentPropsWithRef<"div">) => {
     const navOption = [
         { src: "/", name: "Home", icon: "" },
         { src: "#about", name: "About Us", icon: "" },
-        { src: "/menu", name: "Menu", icon: "" },
+        { src: "/dashboard/menu", name: "Menu", icon: "" },
         { src: "/services", name: "Services", icon: <ChevronDown size={24} strokeWidth={1.5} /> },
     ];
 

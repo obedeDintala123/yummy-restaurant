@@ -251,13 +251,20 @@ export default function Home() {
     { title: "Visit", options: ["Location", "Hours", "Contact"] },
     { title: "Book", options: ["Reservations", "Private events"] },
     { title: "Social", options: ["Instagram", "Facebook", "TikTok"] },
-  ]
+  ];
+
+  useEffect(() => {
+    document.body.classList.add("overflow-hidden");
+    return () => {
+      document.body.classList.remove("overflow-hidden");
+    };
+  }, []);
 
   return (
     <div className="relative overflow-x-hidden">
 
       {loading && (
-        <div className="fixed inset-0 z-[99999] flex items-center justify-center bg-white backdrop-blur-sm transition-all">
+        <div className="fixed inset-0 flex items-center justify-center bg-white z-50 transition-all">
           <Loader />
         </div>
       )}
@@ -265,7 +272,7 @@ export default function Home() {
       {/* Conteúdo da página */}
       <div className={loading ? "pointer-events-none select-none blur-sm" : ""}>
         <div>
-          
+
           {/*Hero-Section*/}
           <div className="min-h-screen">
             <Header ref={headerRef} />
@@ -277,8 +284,8 @@ export default function Home() {
                 <h1 className="text-3xl md:text-7xl font-semibold leading-12 md:leading-24 text-yummy-terciary hero-title text-center md:text-start ">Enjoy Your Healthy Delicious Food</h1>
 
                 <div className="flex justify-center md:justify-start gap-10 hero-button">
-                  <Button className="w-2/6 py-6 rounded-full bg-yummy-primary font-semibold">Menu</Button>
-                  <Button variant={"outline"} className="bg-white w-2/6 py-6 rounded-full text-yummy-terciary font-semibold text-xs md:text-base">Book a table</Button>
+                  <Button className="w-2/6 py-6 rounded-full bg-yummy-primary font-semibold cursor-pointer text-xs md:text-sm ">Menu</Button>
+                  <Button variant={"outline"} className="bg-white w-2/6 py-6 rounded-full text-yummy-terciary font-semibold text-xs md:text-sm cursor-pointer">Book a table</Button>
                 </div>
               </section>
 
