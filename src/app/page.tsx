@@ -257,7 +257,7 @@ export default function Home() {
     <div className="relative overflow-x-hidden">
 
       {loading && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-white backdrop-blur-sm transition-all">
+        <div className="fixed inset-0 z-[99999] flex items-center justify-center bg-white backdrop-blur-sm transition-all">
           <Loader />
         </div>
       )}
@@ -265,7 +265,6 @@ export default function Home() {
       {/* Conteúdo da página */}
       <div className={loading ? "pointer-events-none select-none blur-sm" : ""}>
         <div>
-
           {/*Hero-Section*/}
           <div className="min-h-screen">
             <Header ref={headerRef} />
@@ -282,7 +281,7 @@ export default function Home() {
                 </div>
               </section>
 
-              <section className="-z-50 md:z-10 flex justify-end w-full items-center">
+              <section className="-z-10 md:z-10 flex justify-end w-full items-center">
                 <HeroSlider className="hero-image" />
               </section>
             </article>

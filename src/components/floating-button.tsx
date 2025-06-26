@@ -2,15 +2,16 @@
 
 import { useState } from "react";
 import { Phone } from "lucide-react";
+import { useScreenType } from "@/hooks/screenType";
 
 export const FloatingButton = () => {
     const [showTooltip, setShowTooltip] = useState(false);
 
     return (
-        <div className="fixed right-10 bottom-10 z-50 flex justify-center items-center w-16 h-16 rounded-full bg-yummy-primary animate-bounce group">
+        <div className="fixed right-10 bottom-10 flex justify-center items-center w-16 h-16 rounded-full bg-yummy-primary animate-bounce group z-10">
 
             {showTooltip && (
-                <div className="absolute w-96 right-16 bottom-[80px] translate-y-1/2 flex flex-col items-end z-50">
+                <div className="absolute w-96 right-16 bottom-[80px] translate-y-1/2 flex flex-col items-end">
                     <div className="bg-white text-gray-800 px-4 py-2 rounded-t-lg rounded-bl-lg shadow-lg font-semibold text-sm relative">
                         Chat with us
                     </div>
