@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { ProductCard } from "@/components/cards";
 import Image from "next/image";
 import Link from "next/link";
+import { useScreenType } from "@/hooks/screenType";
 import {
   Leaf,
   ChefHat,
@@ -25,6 +26,7 @@ gsap.registerPlugin(ScrollTrigger);
 
 export default function Home() {
 
+  const screen = useScreenType();
   const headerRef = useRef<HTMLDivElement>(null);
   const aboutTextRef = useRef<HTMLDivElement>(null);
   const aboutListRef = useRef<HTMLUListElement>(null);
@@ -48,12 +50,11 @@ export default function Home() {
       "(min-width: 1280px)": { slides: { perView: 4, spacing: 32 } },
     },
     created: (slider) => {
-      setInterval(() => slider.next(), 3000); // autoplay simples
+      setInterval(() => slider.next(), 3000);
     },
   });
 
   useEffect(() => {
-
     const timer = setTimeout(() => setLoading(false), 10);
     return () => clearTimeout(timer);
   }, []);
@@ -254,7 +255,7 @@ export default function Home() {
 
   return (
     <div className="relative overflow-x-hidden">
-      {/* Overlay de loading */}
+
       {loading && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-white backdrop-blur-sm transition-all">
           <Loader />
@@ -273,7 +274,7 @@ export default function Home() {
 
             <article className="grid grid-cols-1 md:grid-cols-[30%_70%] px-6 md:px-20 mt-10">
               <section className="flex flex-col gap-10">
-               <h1 className="text-3xl md:text-7xl font-semibold leading-12 md:leading-24 text-yummy-terciary hero-title text-center md:text-start ">Enjoy Your Healthy Delicious Food</h1>
+                <h1 className="text-3xl md:text-7xl font-semibold leading-12 md:leading-24 text-yummy-terciary hero-title text-center md:text-start ">Enjoy Your Healthy Delicious Food</h1>
 
                 <div className="flex justify-center md:justify-start gap-10 hero-button">
                   <Button className="w-2/6 py-6 rounded-full bg-yummy-primary font-semibold">Menu</Button>
@@ -345,19 +346,20 @@ export default function Home() {
             </div>
           </section>
 
-          <section className="px-20 mt-20 min-h-screen">
+          {/*Main-Dishes Section*/}
+          <section className="px-6 md:px-20 mt-20 min-h-screen">
             <div className="w-full flex justify-between items-center gap-8">
-              <h1 className="font-montserrat text-5xl font-semibold text-yummy-terciary">Main Dishes</h1>
+              <h1 className="font-montserrat text-2xl md:text-5xl font-semibold text-yummy-terciary">Main Dishes</h1>
               <div className="flex gap-3 items-center cursor-pointer group">
                 <Link
-                  className="text-yummy-terciary font-semibold text-base transition-colors duration-200 group-hover:text-yummy-primary"
+                  className="text-yummy-terciary font-semibold text-xs md:text-base transition-colors duration-200 group-hover:text-yummy-primary"
                   href={"/menu"}
                 >
                   See all
                 </Link>
                 <ArrowRight
-                  size={20}
-                  className="transition-transform duration-200 group-hover:translate-x-1 stroke-[#3a2d2d] group-hover:stroke-yummy-primary"
+                  {...screen === "mobile" ? { size: 16 } : { size: 24 }}
+                  className="text-xs transition-transform duration-200 group-hover:translate-x-1 stroke-[#3a2d2d] group-hover:stroke-yummy-primary"
                 />
               </div>
             </div>
@@ -366,7 +368,7 @@ export default function Home() {
               <div ref={sliderRef} className="keen-slider mt-10">
                 {products.map((product, index) => (
                   <div className="keen-slider__slide flex justify-center" key={index}>
-                    <div className="w-full"> {/* ajuste aqui */}
+                    <div className="w-full">
                       <ProductCard
                         title={product.title}
                         src={product.src}
@@ -380,7 +382,7 @@ export default function Home() {
             ) : (
               <div ref={cardsContainerRef} className="mt-10 flex flex-wrap justify-between gap-6">
                 {products.map((product, index) => (
-                  <div className="w-full"> {/* ajuste aqui também */}
+                  <div className="w-full">
                     <ProductCard
                       key={index}
                       title={product.title}
@@ -394,41 +396,42 @@ export default function Home() {
             )}
           </section>
 
+          {/*Reserve-table Section*/}
           <section
             className="min-h-screen flex flex-col gap-10 justify-center items-center w-full bg-cover bg-center"
             style={{ backgroundImage: `linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url("/reserve-table.jpg")` }}
           >
             <h1
               ref={reserveTitleRef}
-              className="text-6xl font-montserrat font-semibold text-white"
+              className="text-3xl md:text-6xl font-montserrat font-semibold text-white"
             >
               Reserve your table
             </h1>
 
             <span
               ref={reserveSubtitleRef}
-              className="text-5xl text-white font-light"
+              className="leading-10 md:leading-14 text-3xl md:text-5xl text-center md:text-start text-white font-light"
             >
               Book now for an unforgettable meal.
             </span>
 
             <Button
               ref={reserveButtonRef}
-              className="w-1/8 py-6 rounded-full bg-yummy-primary font-semibold cursor-pointer transform transition animate-bounce"
+              className="lg:w-1/8 py-6 rounded-full bg-yummy-primary font-semibold cursor-pointer transform transition animate-bounce"
             >
               Make a reservation
             </Button>
           </section>
 
-          <section className="mt-20 px-20 min-h-screen flex flex-col">
-            <h2 className="text-5xl font-semibold text-yummy-terciary">Frequently asked questions</h2>
-            <div ref={faqGridRef} className="mt-20 grid grid-cols-[50%_50%] h-full flex-1">
+          <section className="mt-20 px-6 md:px-20 min-h-screen flex flex-col">
+            <h2 className="text-3xl md:text-5xl font-semibold text-yummy-terciary">Frequently asked questions</h2>
+            <div ref={faqGridRef} className="mt-20 grid grid-cols-1 md:grid-cols-[50%_50%] h-full flex-1">
               <Image
                 src={"/model.png"}
                 width={500}
                 height={330}
                 alt="model"
-                className="h-full"
+                className="h-full hidden md:block"
               />
               <div ref={faqAccordionRef} className="w-full">
                 <FaqAccordion />
@@ -436,15 +439,14 @@ export default function Home() {
             </div>
           </section>
 
-          <footer className="min-h-[40vh] px-20 bg-yummy-secondary flex flex-col gap-2">
-            <div className="flex justify-between items-start py-16">
+          <footer className="min-h-[40vh] px-6 md:px-20 bg-yummy-secondary flex flex-col gap-2">
+            <div className="flex flex-col gap-10 md:gap-0 md:flex-row justify-between items-start py-5 md:py-16 ">
               <Image
                 src={"yummy-logo.svg"}
-                width={130}
-                height={130}
+                {...screen === "mobile" ? { width: 90, height: 90 } : { width: 130, height: 130 }}
                 alt="footer logo"
               />
-              <div className="flex gap-20">
+              <div className="flex flex-col md:flex-row gap-8 md:gap-20">
                 {
                   footerLinks.map((item, index) => (
                     <div className="flex flex-col gap-2" key={index}>

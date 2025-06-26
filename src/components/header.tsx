@@ -16,13 +16,13 @@ export const Header = ({ ...props }: React.ComponentPropsWithRef<"div">) => {
 
     return (
         <header className="flex items-center justify-between w-full p-6 md:px-20 md:py-10" {...props}>
-            {
-                screen === "mobile" ? (
-                    <Image src={"/yummy-logo.svg"} alt="Logo" width={90} height={90}></Image>
-                ): (
-                    <Image src={"/yummy-logo.svg"} alt="Logo" width={130} height={130}></Image>
-                )
-            }
+
+            <Image
+                src={"/yummy-logo.svg"}
+                alt="Logo"
+                {...screen === "mobile" ? { width: 90, height: 90 } : { width: 130, height: 130 }}
+            />
+
 
             <nav className="hidden md:flex gap-12">
                 {
