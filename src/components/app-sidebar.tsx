@@ -1,3 +1,5 @@
+"use client";
+
 import { Calendar, Home, ShoppingBag, Utensils, ArrowLeft } from "lucide-react"
 
 import {
@@ -6,10 +8,13 @@ import {
     SidebarGroup,
     SidebarGroupContent,
     SidebarGroupLabel,
+    SidebarHeader,
     SidebarMenu,
     SidebarMenuButton,
     SidebarMenuItem,
 } from "@/components/ui/sidebar"
+import Image from "next/image";
+import { useScreenType } from "@/hooks/screenType";
 
 const items = [
     { title: "Dashboard", url: "/dashboard", icon: Home },
@@ -21,11 +26,18 @@ const items = [
 const backItem = { title: "Back", url: "/", icon: ArrowLeft };
 
 export function AppSidebar() {
+    const screen = useScreenType();
     return (
         <Sidebar>
+            <SidebarHeader className="flex justify-center items-center border-b-2 p-4">
+                <Image
+                    src="/yummy-logo.svg"
+                    alt="Yummy Logo"
+                    {...screen === "mobile" ? { width: 60, height: 60 } : { width: 100, height: 100 }}
+                />
+            </SidebarHeader>
             <SidebarContent>
                 <SidebarGroup>
-                    <SidebarGroupLabel>Application</SidebarGroupLabel>
                     <SidebarGroupContent>
                         <SidebarMenu>
                             {items.map((item) => (

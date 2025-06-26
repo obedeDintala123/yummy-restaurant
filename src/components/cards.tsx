@@ -10,38 +10,106 @@ import {
 
 import Image from "next/image";
 
-interface orderCard {
-    src: string;
-    alt: string;
-    title: string;
-    description: string;
-}
+type Order = {
+    id: string;
+    items: string[];
+    total: number;
+    status: "Delivered" | "In progress" | "Canceled" | string;
+};
 
-interface OrderCardProps {
-    orderCard: orderCard[];
-}
+type OrderCardListProps = {
+    orders: Order[];
+    onViewDetails?: (order: Order) => void;
+};
 
-const OrderCard = ({ orderCard }: OrderCardProps) => {
-
+const OrderCardList = ({ orders, onViewDetails }: OrderCardListProps) => {
     return (
-        <>
-            {
-                orderCard.map((item, index) => (
-                    <Card key={index} className="flex flex-col w-1/4">
-                        <CardHeader>
-                            <Image src={item.src} alt={item.alt} width={250} height={250} />
-                        </CardHeader>
-                        <CardContent>
-                            <h1>{item.title}</h1>
-                        </CardContent>
-                        <CardFooter>
-                            <span>{item.description}</span>
-                        </CardFooter>
-                    </Card>
-                ))
-            }
-        </>
-    )
+        <div className="bg-white rounded-lg shadow p-4 space-y-4">
+            {orders.map((order) => (
+                <div
+                    key={order.id}
+                    className="flex flex-col md:flex-row md:items-start md:justify-between border-b last:border-b-0 pb-3 last:pb-0"
+                >
+                    <div className="flex flex-col gap-2">
+                        <div className="font-medium text-lg text-yummy-terciary">Order #{order.id}</div>
+
+                        <div className="text-sm text-gray-500 mt-2">
+                            {order.items.join(", ")} • Status:{" "}
+
+                            <span
+                                className={`font-semibold text-xs ${order.status === "Delivered"
+                                    ? "text-green-700"
+                                    : order.status === "In progress"
+                                        ? "text-yellow-700"
+                                        : "text-gray-700"
+                                    }`}
+                            >
+                                {order.status}
+                            </span>
+                        </div>
+
+                        <span className="font-semibold text-yummy-primary">$ {order.total.toFixed(2)}</span>
+                    </div>
+                    {onViewDetails && (
+                        <button
+                            className="mt-4 md:mt-0 text-sm text-yummy-primary hover:underline self-end md:self-auto cursor-pointer"
+                            onClick={() => onViewDetails(order)}
+                        >
+                            View details
+                        </button>
+                    )}
+                </div>
+            ))}
+        </div>
+    );
+}
+
+type Reservation = {
+    id: string;
+    date: string;
+    people: number;
+    status: "Confirmed" | "Pending" | "Canceled" | string;
+};
+
+type ReservationCardList = {
+    reservations: Reservation[];
+    onViewDetails?: (reservation: Reservation) => void;
+};
+
+const ReservationCardList = ({ reservations, onViewDetails }: ReservationCardList) => {
+    return (
+        <div className="bg-white rounded-lg shadow p-4 space-y-4">
+            {reservations.map((res) => (
+                <div
+                    key={res.id}
+                    className="flex flex-col md:flex-row md:items-center md:justify-between border-b last:border-b-0 pb-3 last:pb-0"
+                >
+                    <div>
+                        <div className="font-medium text-lg text-yummy-terciary">{res.date}</div>
+                        <div className="text-sm text-gray-500">
+                            {res.people} people • Status:{" "}
+                            <span
+                                className={`font-semibold ${res.status === "Confirmed"
+                                    ? "text-green-700"
+                                    : res.status === "Pending"
+                                        ? "text-yellow-700"
+                                        : "text-gray-700"
+                                    }`}
+                            >
+                                {res.status}
+                            </span>
+                        </div>
+                    </div>
+                    <button
+                        className="mt-2 md:mt-0 text-sm text-yummy-primary hover:underline"
+                        onClick={() => onViewDetails?.(res)}
+                    >
+                        View details
+                    </button>
+                </div>
+            ))}
+        </div>
+    );
 }
 
 interface ProductCardProps {
@@ -76,4 +144,4 @@ const ProductCard = ({ src, title, description, price }: ProductCardProps) => {
     )
 }
 
-export { OrderCard, ProductCard }
+export { ProductCard, ReservationCardList, OrderCardList }

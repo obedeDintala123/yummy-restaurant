@@ -20,7 +20,6 @@ type Order = {
 
 type Reservation = {
     id: string;
-    name: string;
     date: string;
     people: number;
     status: string;
@@ -38,26 +37,80 @@ const orders: Order[] = [
 ];
 
 const reservations: Reservation[] = [
-    { id: "RES-001", name: "Maria Silva", date: "2025-06-28 19:00", people: 2, status: "Confirmed" },
-    { id: "RES-002", name: "João Souza", date: "2025-07-01 20:30", people: 4, status: "Pending" },
+    { id: "RES-001", date: "2025-06-28 19:00", people: 2, status: "Confirmed" },
+    { id: "RES-002", date: "2025-07-01 20:30", people: 4, status: "Pending" },
 ];
 
 export default function DashboardPage() {
-    const [userName, setUserName] = useState("John Doe");
+    const [userName, setUserName] = useState("Maria Silva");
 
     useEffect(() => {
-        // Aqui você pode buscar dados reais do usuário/autenticação
-        setUserName("John Doe");
+        // Here you can fetch real user/auth data
+        setUserName("Maria Silva");
     }, []);
 
     return (
-        <div className="px-8 max-w-5xl mt-10">
-            <h1 className="text-3xl font-bold mb-2">Welcome, {userName}!</h1>
-            <p className="text-gray-600 mb-8">Here is your dashboard overview.</p>
+        <div className="px-10 md:px-8 mt-10 text-yummy-terciary">
+            <h1 className="text-3xl font-bold mb-2">Hello, {userName} 👋</h1>
+            <p className="text-gray-600 mb-8">Check your reservations, orders, and suggestions for your next meal!</p>
 
-            {/* Main Dishes */}
+            {/* Next Reservation */}
             <section className="mb-10">
-                <h2 className="text-2xl font-semibold mb-4">Main Dishes</h2>
+                <h2 className="text-xl font-semibold mb-2">Your next reservation</h2>
+                {reservations.length > 0 ? (
+                    <div className="bg-green-50 border border-green-200 rounded-lg p-4 mb-4">
+                        <div className="flex flex-col md:flex-row md:items-center md:justify-between">
+                            <div>
+                                <span className="block font-medium text-green-800">
+                                    {reservations[0].date}
+                                </span>
+                                <span className="block text-sm text-green-700">
+                                    {reservations[0].people} people • Status:
+                                    <span className={`ml-1 font-semibold ${reservations[0].status === "Confirmed" ? "text-green-700" : "text-yellow-700"}`}>
+                                        {reservations[0].status}
+                                    </span>
+                                </span>
+                            </div>
+                            <Button className="mt-3 md:mt-0" variant="outline">
+                                View details
+                            </Button>
+                        </div>
+                    </div>
+                ) : (
+                    <div className="text-gray-500 mb-4">You haven't made any reservations yet.</div>
+                )}
+                <Button className="w-full md:w-auto">Make a new reservation</Button>
+            </section>
+
+            {/* Recent Orders */}
+            <section className="mb-10">
+                <h2 className="text-xl font-semibold mb-2">Your recent orders</h2>
+                {orders.length > 0 ? (
+                    <div className="space-y-3">
+                        {orders.map((order) => (
+                            <div key={order.id} className="bg-white border rounded-lg p-4 flex flex-col md:flex-row md:items-center md:justify-between">
+                                <div>
+                                    <span className="font-medium">Order #{order.id}</span>
+                                    <div className="text-sm text-gray-600">{order.items.join(", ")}</div>
+                                </div>
+                                <div className="flex items-center gap-4 mt-2 md:mt-0">
+                                    <span className="font-semibold text-yummy-primary">${order.total.toFixed(2)}</span>
+                                    <span className={`px-2 py-1 rounded text-xs ${order.status === "Delivered" ? "bg-green-100 text-green-700" : "bg-yellow-100 text-yellow-700"}`}>
+                                        {order.status}
+                                    </span>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                ) : (
+                    <div className="text-gray-500 mb-4">You haven't placed any orders yet.</div>
+                )}
+                <Button className="w-full md:w-auto mt-4">Make a new order</Button>
+            </section>
+
+            {/* Dish Suggestions */}
+            <section>
+                <h2 className="text-xl font-semibold mb-2">Suggestions for you</h2>
                 <div className="flex flex-wrap gap-6">
                     {mainDishes.map((dish, idx) => (
                         <div key={idx} className="w-full sm:w-64">
@@ -69,70 +122,6 @@ export default function DashboardPage() {
                             />
                         </div>
                     ))}
-                </div>
-            </section>
-
-            {/* Orders */}
-            <section className="mb-10">
-                <h2 className="text-2xl font-semibold mb-4">Your Orders</h2>
-                <div className="overflow-x-auto">
-                    <table className="min-w-full bg-white rounded shadow">
-                        <thead>
-                            <tr>
-                                <th className="py-2 px-4 text-left">Order ID</th>
-                                <th className="py-2 px-4 text-left">Items</th>
-                                <th className="py-2 px-4 text-left">Total</th>
-                                <th className="py-2 px-4 text-left">Status</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {orders.map((order) => (
-                                <tr key={order.id} className="border-t">
-                                    <td className="py-2 px-4">{order.id}</td>
-                                    <td className="py-2 px-4">{order.items.join(", ")}</td>
-                                    <td className="py-2 px-4">R$ {order.total.toFixed(2)}</td>
-                                    <td className="py-2 px-4">
-                                        <span className={`px-2 py-1 rounded text-xs ${order.status === "Delivered" ? "bg-green-100 text-green-700" : "bg-yellow-100 text-yellow-700"}`}>
-                                            {order.status}
-                                        </span>
-                                    </td>
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table>
-                </div>
-            </section>
-
-            {/* Reservations */}
-            <section>
-                <h2 className="text-2xl font-semibold mb-4">Your Reservations</h2>
-                <div className="overflow-x-auto">
-                    <table className="min-w-full bg-white rounded shadow">
-                        <thead>
-                            <tr>
-                                <th className="py-2 px-4 text-left">Reservation ID</th>
-                                <th className="py-2 px-4 text-left">Name</th>
-                                <th className="py-2 px-4 text-left">Date</th>
-                                <th className="py-2 px-4 text-left">People</th>
-                                <th className="py-2 px-4 text-left">Status</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {reservations.map((res) => (
-                                <tr key={res.id} className="border-t">
-                                    <td className="py-2 px-4">{res.id}</td>
-                                    <td className="py-2 px-4">{res.name}</td>
-                                    <td className="py-2 px-4">{res.date}</td>
-                                    <td className="py-2 px-4">{res.people}</td>
-                                    <td className="py-2 px-4">
-                                        <span className={`px-2 py-1 rounded text-xs ${res.status === "Confirmed" ? "bg-green-100 text-green-700" : "bg-yellow-100 text-yellow-700"}`}>
-                                            {res.status}
-                                        </span>
-                                    </td>
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table>
                 </div>
             </section>
         </div>
