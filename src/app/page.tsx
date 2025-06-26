@@ -398,7 +398,7 @@ export default function Home() {
 
           {/*Reserve-table Section*/}
           <section
-            className="min-h-screen flex flex-col gap-10 justify-center items-center w-full bg-cover bg-center"
+            className="min-h-[70vh] md:min-h-screen flex flex-col gap-10 justify-center items-center w-full bg-cover bg-center"
             style={{ backgroundImage: `linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url("/reserve-table.jpg")` }}
           >
             <h1
@@ -424,7 +424,7 @@ export default function Home() {
           </section>
 
           <section className="mt-20 px-6 md:px-20 min-h-screen flex flex-col">
-            <h2 className="text-3xl md:text-5xl font-semibold text-yummy-terciary">Frequently asked questions</h2>
+            <h2 className="text-4xl md:text-5xl leading-12 md:leading-16 lg:leading-0 font-semibold text-yummy-terciary">Frequently asked questions</h2>
             <div ref={faqGridRef} className="mt-20 grid grid-cols-1 md:grid-cols-[50%_50%] h-full flex-1">
               <Image
                 src={"/model.png"}
@@ -443,7 +443,7 @@ export default function Home() {
             <div className="flex flex-col gap-10 md:gap-0 md:flex-row justify-between items-start py-5 md:py-16 ">
               <Image
                 src={"yummy-logo.svg"}
-                {...screen === "mobile" ? { width: 90, height: 90 } : { width: 130, height: 130 }}
+                {...screen === "mobile" ? { width: 120, height: 120 } : { width: 130, height: 130 }}
                 alt="footer logo"
               />
               <div className="flex flex-col md:flex-row gap-8 md:gap-20">
