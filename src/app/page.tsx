@@ -349,7 +349,7 @@ export default function Home() {
           {/*Main-Dishes Section*/}
           <section className="px-6 md:px-20 mt-20 min-h-screen">
             <div className="w-full flex justify-between items-center gap-8">
-              <h1 className="font-montserrat text-2xl md:text-5xl font-semibold text-yummy-terciary">Main Dishes</h1>
+              <h1 className="font-montserrat text-3xl md:text-5xl font-semibold text-yummy-terciary">Main Dishes</h1>
               <div className="flex gap-3 items-center cursor-pointer group">
                 <Link
                   className="text-yummy-terciary font-semibold text-xs md:text-base transition-colors duration-200 group-hover:text-yummy-primary"
