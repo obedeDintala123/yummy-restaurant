@@ -398,7 +398,7 @@ export default function Home() {
 
           {/*Reserve-table Section*/}
           <section
-            className="min-h-[70vh] md:min-h-screen flex flex-col gap-10 justify-center items-center w-full bg-cover bg-center"
+            className="min-h-[70vh] md:min-h-screen flex flex-col gap-14 md:gap-10 justify-center items-center w-full bg-cover bg-center"
             style={{ backgroundImage: `linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url("/reserve-table.jpg")` }}
           >
             <h1
