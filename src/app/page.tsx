@@ -265,6 +265,7 @@ export default function Home() {
       {/* Conteúdo da página */}
       <div className={loading ? "pointer-events-none select-none blur-sm" : ""}>
         <div>
+          
           {/*Hero-Section*/}
           <div className="min-h-screen">
             <Header ref={headerRef} />

@@ -20,7 +20,6 @@ const MenuNav = ({ setMenuOpen }: { setMenuOpen: (open: boolean) => void }) => {
         };
     }, []);
 
-
     if (typeof window === "undefined") return null;
 
     return createPortal(
@@ -30,7 +29,7 @@ const MenuNav = ({ setMenuOpen }: { setMenuOpen: (open: boolean) => void }) => {
                 <button
                     title="menu-close"
                     onClick={() => setMenuOpen(false)}
-                    className="text-yummy-terciary transition-all duration-300 transform hover:rotate-90"
+                    className="text-yummy-terciary transition-all duration-300 transform hover:rotate-90 cursor-pointer"
                 >
                     <XIcon size={28} />
                 </button>
@@ -97,7 +96,7 @@ export const Header = ({ ...props }: React.ComponentPropsWithRef<"div">) => {
                             <Menu size={28} />
                         </span>
                         <span
-                            className={`absolute transition-all duration-300 ${menuOpen ? "opacity-100 scale-100 rotate-0" : "opacity-0 scale-90 -rotate-45"}`}
+                            className={`absolute cursor-pointer transition-all duration-300 ${menuOpen ? "opacity-100 scale-100 rotate-0" : "opacity-0 scale-90 -rotate-45"}`}
                         >
                             <XIcon size={28} />
                         </span>

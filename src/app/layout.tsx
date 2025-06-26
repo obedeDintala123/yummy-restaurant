@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { Montserrat } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import "./globals.css";
 
 const montserrat = Montserrat({
@@ -13,14 +15,14 @@ export const metadata: Metadata = {
     "Discover the best in modern cuisine with Yummy Restaurant. Digital menu, fast ordering, and an unforgettable dining experience.",
 
   icons: {
-    icon: "/icon.svg",                        
-    shortcut: "/icon.svg",         
-    apple: "/icon.svg",          
+    icon: "/icon.svg",
+    shortcut: "/icon.svg",
+    apple: "/icon.svg",
     other: [
       {
         rel: "mask-icon",
         url: "/icon.svg",
-        color: "#ff6600",                         
+        color: "#ff6600",
       },
     ],
   },
@@ -43,7 +45,7 @@ export const metadata: Metadata = {
     siteName: "Yummy Restaurant",
     images: [
       {
-        url: "/icon.svg", 
+        url: "/icon.svg",
         width: 1200,
         height: 630,
         alt: "Yummy Restaurant Open Graph Banner",
@@ -81,6 +83,9 @@ export default function RootLayout({
         className={`${montserrat.variable} antialiased`}
       >
         {children}
+
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );
