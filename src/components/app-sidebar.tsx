@@ -12,9 +12,12 @@ import {
     SidebarMenu,
     SidebarMenuButton,
     SidebarMenuItem,
+    SidebarFooter,
+    SidebarRail,
 } from "@/components/ui/sidebar"
 import Image from "next/image";
 import { useScreenType } from "@/hooks/screenType";
+import { NavUser } from "./nav-user";
 
 const items = [
     { title: "Dashboard", url: "/dashboard", icon: Home },
@@ -23,7 +26,13 @@ const items = [
     { title: "Orders", url: "/dashboard/orders", icon: ShoppingBag },
 ];
 
-const backItem = { title: "Back", url: "/", icon: ArrowLeft };
+const data = {
+    user: {
+        name: "shadcn",
+        email: "m@example.com",
+        avatar: "/avatars/shadcn.jpg",
+    }
+}
 
 export function AppSidebar() {
     const screen = useScreenType();
@@ -53,20 +62,12 @@ export function AppSidebar() {
                         </SidebarMenu>
                     </SidebarGroupContent>
                 </SidebarGroup>
-
-                <div className="mt-auto py-2">
-                    <SidebarMenu>
-                        <SidebarMenuItem key={backItem.title}>
-                            <SidebarMenuButton asChild>
-                                <a href={backItem.url}>
-                                    <backItem.icon />
-                                    <span>{backItem.title}</span>
-                                </a>
-                            </SidebarMenuButton>
-                        </SidebarMenuItem>
-                    </SidebarMenu>
-                </div>
             </SidebarContent>
+
+            <SidebarFooter>
+                <NavUser user={data.user} />
+            </SidebarFooter>
+            <SidebarRail />
         </Sidebar>
     )
 }

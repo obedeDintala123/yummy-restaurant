@@ -14,7 +14,7 @@ export default function Reservations() {
     ];
 
     return (
-        <div className="px-4 md:px-10 mt-10 w-full">
+        <div className="px-4 md:px-10 my-10 w-full">
             <div className="w-ful flex justify-between items-center">
                 <div>
                     <h1 className="text-xl md:text-3xl font-semibold text-yummy-terciary mb-2">My Reservations</h1>
@@ -25,15 +25,17 @@ export default function Reservations() {
                     <button title="new-order" className="bg-yummy-primary p-2 rounded-md font-semibold text-white text-sm">
                         <Plus size={16} />
                     </button>
-                ) :
-                    (<button title="new-order" className="bg-yummy-primary p-3 rounded-md font-semibold text-white text-sm">New order</button>)
-                }
+                ) : (
+                    <button title="new-order" className="bg-yummy-primary px-4 py-2 rounded-sm font-medium text-white text-sm">
+                        New reservation
+                    </button>
+                )}
             </div>
 
             {/* Example reservation list */}
             <ReservationCardList
                 reservations={reservations}
-                onViewDetails={(res) => alert(`Reservation: ${res.id}`)}
+                onViewDetails={(res) => alert(`Reservation ID: ${res.id}`)}
             />
 
         </div>

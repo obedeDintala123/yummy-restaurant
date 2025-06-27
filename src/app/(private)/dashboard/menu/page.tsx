@@ -59,7 +59,7 @@ export default function Menu() {
     ];
 
     return (
-        <div className="px-10 mt-10 w-full">
+        <div className="px-10 my-10 w-full">
             <h1 className="text-3xl font-semibold text-yummy-terciary">Menu</h1>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mt-6 w-full">
