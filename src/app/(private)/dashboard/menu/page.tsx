@@ -13,7 +13,10 @@ export default function Menu() {
 
         const fetchProducts = () => {
             apiRequest("/menu")
-                .then(setProducts)
+                .then((data) => {
+                    console.log("Produtos:", data);
+                    setProducts(data);
+                })
                 .finally(() => setLoading(false));
         };
 
