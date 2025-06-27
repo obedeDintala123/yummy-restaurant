@@ -110,7 +110,7 @@ const ReservationCardList = ({ reservations, onViewDetails }: ReservationCardLis
                         </div>
                     </div>
                     <button
-                        className="mt-2 md:mt-0 text-sm text-yummy-primary hover:underline"
+                        className="hidden md:block mt-2 md:mt-0 text-sm text-yummy-primary hover:underline"
                         onClick={() => onViewDetails?.(res)}
                     >
                         View details
