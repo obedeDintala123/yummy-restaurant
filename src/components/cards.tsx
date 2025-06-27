@@ -58,7 +58,7 @@ const OrderCardList = ({ orders, onViewDetails }: OrderCardListProps) => {
                     </div>
                     {onViewDetails && (
                         <button
-                            className="text-sm cursor-pointer hover:underline text-yummy-primary"
+                            className="hidden md:block text-sm cursor-pointer hover:underline text-yummy-primary"
                             onClick={() => onViewDetails(order)}
                         >
                             View details

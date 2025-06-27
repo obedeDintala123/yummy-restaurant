@@ -50,7 +50,7 @@ export default function DashboardPage() {
     }, []);
 
     return (
-        <div className="px-10 md:px-8 my-6 text-yummy-terciary">
+        <div className="px-4 md:px-10 md:px-8 my-6 text-yummy-terciary">
             <h1 className="text-3xl font-bold mb-2">Hello, {userName} 👋</h1>
             <p className="text-gray-600 mb-8">Check your reservations, orders, and suggestions for your next meal!</p>
 
@@ -79,7 +79,7 @@ export default function DashboardPage() {
                 ) : (
                     <div className="text-gray-500 mb-4">You haven't made any reservations yet.</div>
                 )}
-                <Button className="w-full md:w-auto">Make a new reservation</Button>
+                <Button className="w-full md:w-auto bg-yummy-primary">Make a new reservation</Button>
             </section>
 
             {/* Recent Orders */}
@@ -105,7 +105,7 @@ export default function DashboardPage() {
                 ) : (
                     <div className="text-gray-500 mb-4">You haven't placed any orders yet.</div>
                 )}
-                <Button className="w-full md:w-auto mt-4">Make a new order</Button>
+                <Button className="w-full md:w-auto mt-4 bg-yummy-primary">Make a new order</Button>
             </section>
 
             {/* Dish Suggestions */}
