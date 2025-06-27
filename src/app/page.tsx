@@ -277,7 +277,11 @@ export default function Home() {
                 <h1 className="text-3xl md:text-7xl font-semibold leading-12 md:leading-24 text-yummy-terciary hero-title text-center md:text-start ">Enjoy Your Healthy Delicious Food</h1>
 
                 <div className="flex justify-center md:justify-start gap-10 hero-button">
-                  <Button className="w-2/6 py-6 rounded-full bg-yummy-primary font-semibold cursor-pointer text-xs md:text-sm ">Menu</Button>
+                  <Button className="w-2/6 py-6 rounded-full bg-yummy-primary font-semibold cursor-pointer text-xs md:text-sm ">
+                    <Link href={"/dashboard/menu"}>
+                      Menu
+                    </Link>
+                  </Button>
                   <Button variant={"outline"} className="bg-white w-2/6 py-6 rounded-full text-yummy-terciary font-semibold text-xs md:text-sm cursor-pointer">Book a table</Button>
                 </div>
               </section>
