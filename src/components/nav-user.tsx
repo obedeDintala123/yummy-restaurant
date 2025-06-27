@@ -86,7 +86,7 @@ export function NavUser({
                             </DropdownMenuItem>
                         </DropdownMenuGroup>
                         <DropdownMenuSeparator />
-                        <DropdownMenuItem onClick={() => window.location.href = "/"}>
+                        <DropdownMenuItem className="cu" onClick={() => window.location.href = "/"}>
                             <LogOut />
                             Back
                         </DropdownMenuItem>

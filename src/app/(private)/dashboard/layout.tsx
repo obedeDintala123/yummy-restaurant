@@ -10,7 +10,9 @@ export default function DashboardLayout({
         <SidebarProvider>
             <AppSidebar />
             <main className="flex-1 min-h-screen">
-                <SidebarTrigger />
+                <header className="">
+                    <SidebarTrigger />
+                </header>
                 {children}
             </main>
         </SidebarProvider>

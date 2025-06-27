@@ -1,9 +1,10 @@
-import type { NextConfig } from "next";
-
-const nextConfig: NextConfig = {
-  // Enable file-system based caching (default in Next.js 13+)
+/** @type {import('next').NextConfig} */
+const nextConfig = {
   output: "standalone",
   swcMinify: true,
+  images: {
+    domains: ["images.pexels.com"]
+  }
 };
 
 export default nextConfig;
