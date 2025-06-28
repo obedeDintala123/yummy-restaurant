@@ -5,7 +5,7 @@ export async function apiRequest<T = any>(
   body?: any,
   options?: RequestInit
 ): Promise<T> {
-  const baseUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3001/api";
+  const baseUrl = process.env.NEXT_PUBLIC_API_URL;
   const url = endpoint.startsWith("http") ? endpoint : `${baseUrl}${endpoint}`;
 
   const fetchOptions: RequestInit = {
