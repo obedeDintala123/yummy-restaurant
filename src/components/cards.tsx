@@ -99,10 +99,10 @@ const ReservationCardList = ({ reservations, onViewDetails }: ReservationCardLis
                             {res.people} people • Status:{" "}
                             <span
                                 className={`font-semibold ${res.status === "Confirmed"
-                                        ? "text-green-700"
-                                        : res.status === "Pending"
-                                            ? "text-yellow-700"
-                                            : "text-gray-700"
+                                    ? "text-green-700"
+                                    : res.status === "Pending"
+                                        ? "text-yellow-700"
+                                        : "text-gray-700"
                                     }`}
                             >
                                 {res.status}
@@ -135,9 +135,11 @@ const ProductCard = ({ src, title, description, price }: ProductCardProps) => {
                 <div className="relative w-full h-60 flex items-center justify-center">
                     <Image
                         src={src}
-                        alt="product1"
+                        alt={title}
                         fill
+                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
                         className="rounded-md object-fill"
+                        priority
                     />
                 </div>
             </CardHeader>
