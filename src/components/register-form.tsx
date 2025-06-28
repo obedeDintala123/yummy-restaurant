@@ -16,7 +16,7 @@ const registerSchema = z.object({
 
 type RegisterFormValues = z.infer<typeof registerSchema>;
 
-export default function RegisterForm() {
+export function RegisterForm() {
     const { register: registerUser, loading, error } = useAuth();
     const [formError, setFormError] = useState<string | null>(null);
 
@@ -50,9 +50,9 @@ export default function RegisterForm() {
     return (
         <form
             onSubmit={handleSubmit(onSubmit)}
-            className="max-w-sm mx-auto p-6 bg-white rounded-xl shadow flex flex-col gap-4"
+            className="w-[90%] md:w-1/4 p-6 flex flex-col gap-4"
         >
-            <h2 className="text-2xl font-bold mb-4 text-center">Register</h2>
+            <h2 className="text-2xl font-semibold mb-4 text-center">Create an account</h2>
 
             <div>
                 <label className="block text-sm font-medium mb-1">Name</label>
@@ -103,6 +103,13 @@ export default function RegisterForm() {
             >
                 {loading ? "Registering..." : "Register"}
             </Button>
+
+            <div className="text-center text-sm mt-4">
+                {"Already have an account? "}
+                <a href="/login" className="text-yummy-primary font-semibold hover:underline">
+                    Sign in
+                </a>
+            </div>
         </form>
     );
 }

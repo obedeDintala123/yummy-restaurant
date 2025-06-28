@@ -53,9 +53,9 @@ export function LoginForm() {
     return (
         <form
             onSubmit={handleSubmit(onSubmit)}
-            className="w-[90%] md:w-1/4 p-6 bg-white rounded-xl shadow flex flex-col gap-4"
+            className="w-[90%] md:w-1/4 p-6 flex flex-col gap-4"
         >
-            <h2 className="text-2xl font-bold mb-4 text-center">Login</h2>
+            <h2 className="text-2xl font-semibold mb-4 text-center">Welcome back</h2>
 
             <div>
                 <label className="block text-sm font-medium mb-1">Email</label>
@@ -93,6 +93,13 @@ export function LoginForm() {
             >
                 {loading ? "Logging in..." : "Login"}
             </Button>
+
+            <div className="text-center text-sm mt-4">
+                {"Don't have an account? "}
+                <a href="/register" className="text-yummy-primary font-semibold hover:underline">
+                    Sign up
+                </a>
+            </div>
         </form>
     );
 }

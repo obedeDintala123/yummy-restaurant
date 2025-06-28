@@ -14,15 +14,14 @@ export default function Menu() {
         const fetchProducts = () => {
             apiRequest("/menu")
                 .then((data) => {
-                    console.log("Produtos:", data);
                     setProducts(data);
                 })
                 .finally(() => setLoading(false));
         };
 
-        fetchProducts(); // fetch immediately
+        fetchProducts();
 
-        interval = setInterval(fetchProducts, 3000); // fetch every 3 seconds
+        interval = setInterval(fetchProducts, 3000);
 
         return () => clearInterval(interval);
     }, []);

@@ -1,9 +1,9 @@
-export default function Register(){
+import { RegisterForm } from "@/components/register-form"
+
+export default function Register() {
     return (
-        <div>
-            <h1>Register</h1>
-            <p>Register page content goes here.</p>
-            {/* Add your registration form or components here */}
+        <div className="flex flex-col items-center justify-center min-h-screen md:min-h-[80vh] bg-white">
+            <RegisterForm />
         </div>
     )
 }
