@@ -23,10 +23,23 @@ export async function apiRequest<T = any>(
 
   const res = await fetch(url, fetchOptions);
 
-  if (!res.ok) {
-    const error = await res.json().catch(() => ({}));
-    throw new Error(error.message || "API request failed");
+if (!res.ok) {
+
+  let errorMessage = "API request failed";
+  try {
+    const errorData = await res.json();
+    if (typeof errorData.message === "string") {
+      errorMessage = errorData.message;
+    } else if (typeof errorData.message === "object") {
+      errorMessage = JSON.stringify(errorData.message);
+    }
+  } catch {
+    
+    const text = await res.text();
+    if (text) errorMessage = text;
   }
+  throw new Error(errorMessage);
+}
 
   return res.json();
 }

@@ -31,29 +31,32 @@ export function LoginForm() {
         setFormError(null);
         try {
             await login(data.email, data.password);
-            toast("Login successful!", {
+            toast.success("Login successful!", {
+                style: { color: "#16a34a" },
                 description: (
-                    <span className="text-gray-700 font-semibold">
-                        {`Welcome back, ${data.email}!`}
+                    <span className="text-black">
+                        Welcome back, ${data.email}!
                     </span>
                 ),
             });
         } catch (err: any) {
-            setFormError("Login failed");
-            toast("Login failed", {
-                description: "Please check your credentials and try again.",
-                action: {
-                    label: "Retry",
-                    onClick: () => { },
-                },
+            const message = err?.message || error || "Login failed";
+            setFormError(message);
+            toast.error("Login failed", {
+                style: { color: "#cc0000" },
+                description: (
+                    <span className="text-black">
+                        {message}
+                    </span>
+                ),
             });
         }
     }
-
     return (
         <form
             onSubmit={handleSubmit(onSubmit)}
             className="w-[90%] md:w-1/4 p-6 flex flex-col gap-4"
+            method="POST"
         >
             <h2 className="text-2xl font-semibold mb-4 text-center">Welcome back</h2>
 
@@ -82,9 +85,6 @@ export function LoginForm() {
                     <span className="text-red-500 text-xs">{errors.password.message}</span>
                 )}
             </div>
-
-            {formError && <div className="text-red-500 text-sm">{formError}</div>}
-            {error && <div className="text-red-500 text-sm">{error}</div>}
 
             <Button
                 type="submit"

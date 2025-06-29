@@ -1,7 +1,6 @@
 "use client";
 
-import { Calendar, Home, ShoppingBag, Utensils, ArrowLeft } from "lucide-react"
-
+import { Calendar, Home, ShoppingBag, Utensils, ArrowLeft } from "lucide-react";
 import {
     Sidebar,
     SidebarContent,
@@ -14,10 +13,13 @@ import {
     SidebarMenuItem,
     SidebarFooter,
     SidebarRail,
-} from "@/components/ui/sidebar"
+} from "@/components/ui/sidebar";
 import Image from "next/image";
 import { useScreenType } from "@/hooks/screenType";
 import { NavUser } from "./nav-user";
+import { getCookie } from "cookies-next";
+import { jwtDecode } from "jwt-decode";
+import { useMemo } from "react";
 
 const items = [
     { title: "Dashboard", url: "/dashboard", icon: Home },
@@ -26,23 +28,53 @@ const items = [
     { title: "Orders", url: "/dashboard/orders", icon: ShoppingBag },
 ];
 
-const data = {
-    user: {
-        name: "shadcn",
-        email: "m@example.com",
-        avatar: "/avatars/shadcn.jpg",
-    }
-}
-
 export function AppSidebar() {
     const screen = useScreenType();
+
+    const user = useMemo(() => {
+        let defaultUser = {
+            name: "",
+            email: "",
+            avatar: "",
+        };
+        try {
+            const tokenData = getCookie("auth-token");
+            if (tokenData && typeof tokenData === "string") {
+                const parsed = JSON.parse(tokenData);
+                if (parsed.token) {
+                    const decoded: any = jwtDecode(parsed.token);
+                    // Gera as iniciais do nome
+                    let initials = "";
+                    if (decoded.name) {
+                        initials = decoded.name
+                            .split(" ")
+                            .map((n: string) => n[0])
+                            .join("")
+                            .toUpperCase();
+                    }
+                    return {
+                        ...defaultUser,
+                        name: decoded.name || "",
+                        email: decoded.email || "",
+                        avatar: initials || "EX",
+                    };
+                }
+            }
+        } catch {
+            // fallback
+        }
+        return defaultUser;
+    }, []);
+
     return (
         <Sidebar>
             <SidebarHeader className="flex justify-center items-center border-b-2 p-4">
                 <Image
                     src="/yummy-logo.svg"
                     alt="Yummy Logo"
-                    {...screen === "mobile" ? { width: 90, height: 90 } : { width: 100, height: 100 }}
+                    {...(screen === "mobile"
+                        ? { width: 90, height: 90 }
+                        : { width: 100, height: 100 })}
                 />
             </SidebarHeader>
             <SidebarContent>
@@ -65,9 +97,9 @@ export function AppSidebar() {
             </SidebarContent>
 
             <SidebarFooter>
-                <NavUser user={data.user} />
+                <NavUser user={user} />
             </SidebarFooter>
             <SidebarRail />
         </Sidebar>
-    )
+    );
 }

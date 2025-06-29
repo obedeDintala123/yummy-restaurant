@@ -1,6 +1,8 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useMemo, useState } from "react";
+import { getCookie } from "cookies-next";
+import { jwtDecode } from "jwt-decode";
 import { ProductCard } from "@/components/cards";
 import { Button } from "@/components/ui/button";
 
@@ -42,16 +44,27 @@ const reservations: Reservation[] = [
 ];
 
 export default function DashboardPage() {
-    const [userName, setUserName] = useState("Maria Silva");
+    const user = useMemo(() => {
+        try {
+            const tokenData = getCookie("auth-token");
+            if (tokenData && typeof tokenData === "string") {
+                const parsed = JSON.parse(tokenData);
+                if (parsed.token) {
+                    const decoded: any = jwtDecode(parsed.token);
+                    return {
+                        name: decoded.name || "",
+                    };
+                }
+            }
+        } catch {
+            
+        }
 
-    useEffect(() => {
-        // Here you can fetch real user/auth data
-        setUserName("Maria Silva");
     }, []);
 
     return (
         <div className="px-4 md:px-10 my-6 text-yummy-terciary">
-            <h1 className="text-3xl font-bold mb-2">Hello, {userName} 👋</h1>
+            <h1 className="text-3xl font-bold mb-2">Hello, {user?.name} 👋</h1>
             <p className="text-gray-600 mb-8">Check your reservations, orders, and suggestions for your next meal!</p>
 
             {/* Next Reservation */}

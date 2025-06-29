@@ -12,7 +12,7 @@ export default function Menu() {
         let interval: NodeJS.Timeout;
 
         const fetchProducts = () => {
-            apiRequest("/menu")
+            apiRequest("/api/menu")
                 .then((data) => {
                     setProducts(data);
                 })
