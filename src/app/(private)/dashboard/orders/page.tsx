@@ -7,8 +7,10 @@ import { useState, useEffect } from "react";
 import { apiRequest } from "@/lib/api";
 import { OrderForm } from "@/components/forms";
 import { Toaster } from "@/components/ui/sonner";
+import { useRouter } from "next/navigation";
 
 export default function Orders() {
+  const router = useRouter();
   const [showOrderForm, setShowOrderForm] = useState(false);
   const [loading, setLoading] = useState(true);
   const [orders, setOrders] = useState<any[]>([]);
@@ -44,11 +46,11 @@ export default function Orders() {
               </div>
 
               {screen === "mobile" ? (
-                <button title="new-order" className="bg-yummy-primary p-2 rounded-md font-semibold text-white text-sm cursor-pointer" onClick={() => setShowOrderForm(true)}>
+                <button title="new-order" className="bg-yummy-primary p-2 rounded-md font-semibold text-white text-sm cursor-pointer" onClick={() => router.push("/dashboard/menu")}>
                   <Plus size={16} />
                 </button>
               ) : (
-                <button title="new-order" className="bg-yummy-primary px-4 py-2 rounded-sm font-medium text-white text-sm cursor-pointer" onClick={() => setShowOrderForm(true)}>
+                <button title="new-order" className="bg-yummy-primary px-4 py-2 rounded-sm font-medium text-white text-sm cursor-pointer" onClick={() => router.push("/dashboard/menu")}>
                   New order
                 </button>
               )}
@@ -57,7 +59,7 @@ export default function Orders() {
             {loading ? (
               <div className="text-center text-gray-500">Loading...</div>
             ) : (
-              <OrderCardList orders={orders}  onViewDetails={(res) => alert(`Order ID: ${res.id}`)}/>
+              <OrderCardList orders={orders} onViewDetails={(res) => alert(`Order ID: ${res.id}`)} />
             )}
           </div>
         )

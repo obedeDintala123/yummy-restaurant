@@ -130,14 +130,14 @@ const ReservationCardList = ({ reservations, onViewDetails }: ReservationCardLis
     );
 }
 
-interface ProductCardProps {
+type ProductCardProps = {
     src: string;
     title: string;
     description: string;
     price: number;
-}
-
-const ProductCard = ({ src, title, description, price }: ProductCardProps) => {
+    onSelect: () => void;
+};
+const ProductCard = ({ src, title, description, price, onSelect }: ProductCardProps) => {
     return (
         <Card className="mt-4 w-full sm:w-[90%] md:w-[45%] lg:w-full p-0">
             <CardHeader className="p-0">
@@ -158,7 +158,7 @@ const ProductCard = ({ src, title, description, price }: ProductCardProps) => {
             </CardContent>
             <CardFooter className="flex justify-between px-4 py-3">
                 <span className=" font-montserrat text-xl font-semibold text-yummy-terciary">{price}$</span>
-                <button className="bg-yummy-primary px-4 py-2 rounded-md text-white font-montserrat font-semibold cursor-pointer text-sm">Order Now</button>
+                <button className="bg-yummy-primary px-4 py-2 rounded-md text-white font-montserrat font-semibold cursor-pointer text-sm" onClick={onSelect}>Order Now</button>
             </CardFooter>
         </Card>
     )

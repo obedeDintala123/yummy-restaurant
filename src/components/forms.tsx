@@ -20,7 +20,15 @@ const orderSchema = z.object({
 
 type OrderFormValues = z.infer<typeof orderSchema>;
 
-const OrderForm = ({ onSuccess }: { onSuccess?: () => void }) => {
+type OrderFormProps = {
+    onSuccess?: () => void;
+    product?: {
+        productName: string;
+        price: number;
+    };
+};
+
+const OrderForm = ({ onSuccess, product }: OrderFormProps) => {
     const [isSubmitting, setIsSubmitting] = useState(false);
 
     const userInfo = useMemo(() => {
@@ -44,6 +52,10 @@ const OrderForm = ({ onSuccess }: { onSuccess?: () => void }) => {
         formState: { errors },
     } = useForm<OrderFormValues>({
         resolver: zodResolver(orderSchema),
+        defaultValues: {
+            productName: product?.productName ?? "",
+            price: product?.price ?? 0,
+        },
     });
 
     const onSubmit = (data: OrderFormValues) => {
@@ -67,7 +79,6 @@ const OrderForm = ({ onSuccess }: { onSuccess?: () => void }) => {
                     style: { color: "#16a34a" },
                     duration: 1000,
                 });
-
                 closeForm();
             })
             .catch((err) => {
@@ -116,7 +127,8 @@ const OrderForm = ({ onSuccess }: { onSuccess?: () => void }) => {
                 type="text"
                 placeholder="Product Name"
                 {...register("productName")}
-                className="border rounded px-3 py-2"
+                className="border rounded px-3 py-2 bg-gray-100"
+                disabled
             />
             {errors.productName && (
                 <span className="text-red-500 text-xs">
@@ -128,8 +140,9 @@ const OrderForm = ({ onSuccess }: { onSuccess?: () => void }) => {
                 type="number"
                 placeholder="Price"
                 {...register("price", { valueAsNumber: true })}
-                className="border rounded px-3 py-2"
+                className="border rounded px-3 py-2 bg-gray-100"
                 step="0.01"
+                disabled
             />
             {errors.price && (
                 <span className="text-red-500 text-xs">{errors.price.message}</span>
