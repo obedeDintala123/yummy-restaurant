@@ -135,7 +135,7 @@ type ProductCardProps = {
     title: string;
     description: string;
     price: number;
-    onSelect: () => void;
+    onSelect?: () => void;
 };
 const ProductCard = ({ src, title, description, price, onSelect }: ProductCardProps) => {
     return (
