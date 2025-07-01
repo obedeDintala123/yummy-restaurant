@@ -10,6 +10,7 @@ const montserrat = Montserrat({
 })
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://yummy-restaurant-five.vercel.app"),
   title: "Yummy Restaurant",
   description:
     "Discover the best in modern cuisine with Yummy Restaurant. Digital menu, fast ordering, and an unforgettable dining experience.",

@@ -41,7 +41,7 @@ export default function Menu() {
             ) : (
                 <div>
                     {loading ? (
-                        <div className="mt-10 text-center text-gray-400">Loading...</div>
+                        <div className="mt-10 text-center text-gray-400">Loading products...</div>
                     ) : (
                         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mt-6 w-full">
                             {products.length > 0 ? (

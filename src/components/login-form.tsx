@@ -55,7 +55,7 @@ export function LoginForm() {
     return (
         <form
             onSubmit={handleSubmit(onSubmit)}
-            className="w-[90%] md:w-1/4 p-6 flex flex-col gap-4"
+            className="w-[90%] md:w-1/3 p-6 flex flex-col gap-4"
             method="POST"
         >
             <h2 className="text-2xl font-semibold mb-4 text-center">Welcome back</h2>

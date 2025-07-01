@@ -19,12 +19,20 @@ import {
 import { FaqAccordion } from "@/components/faq-accordion";
 import { FloatingButton } from "@/components/floating-button";
 import { useRef, useEffect, useState } from "react";
+import { apiRequest } from "@/lib/api";
+import { useRouter } from "next/navigation";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Loader } from "@/components/loader";
 gsap.registerPlugin(ScrollTrigger);
 
 export default function Home() {
+  const [products, setProducts] = useState<any[]>([]);
+  const [selectedProduct, setSelectedProduct] = useState<{
+    productName: string;
+    price: number;
+  } | null>(null);
+  const router = useRouter();
 
   const screen = useScreenType();
   const headerRef = useRef<HTMLDivElement>(null);
@@ -236,15 +244,24 @@ export default function Home() {
     }
   }, []);
 
-  const products = [
-    { title: "Produto 1", src: "/product1.jpg", description: "Produto 1", price: 24 },
+  useEffect(() => {
+    const fetchProducts = () => {
+      apiRequest("/api/menu")
+        .then((data) => setProducts(data))
+        .finally(() => setLoading(false));
+    };
 
-    { title: "Produto 2", src: "/product2.jpg", description: "Produto 2", price: 24 },
+    fetchProducts();
+    const interval = setInterval(fetchProducts, 3000);
 
-    { title: "Produto 3", src: "/product3.jpg", description: "Produto 3", price: 24 },
+    return () => clearInterval(interval);
+  }, []);
 
-    { title: "Produto 4", src: "/product4.jpg", description: "Produto 4", price: 24 },
-  ];
+  useEffect(() => {
+    if (selectedProduct) {
+      router.push("/dashboard/menu");
+    }
+  }, [selectedProduct]);
 
   const footerLinks = [
     { title: "Restaurant", options: ["About Us", "Menu", "Gallery"] },
@@ -282,7 +299,11 @@ export default function Home() {
                       Menu
                     </Link>
                   </Button>
-                  <Button variant={"outline"} className="bg-white w-2/6 py-6 rounded-full text-yummy-terciary font-semibold text-xs md:text-sm cursor-pointer">Book a table</Button>
+                  <Button variant={"outline"} className="bg-white w-2/6 py-6 rounded-full text-yummy-terciary font-semibold text-xs md:text-sm cursor-pointer">
+                    <Link href={"/dashboard/reservations"}>
+                      Book a table
+                    </Link>
+                  </Button>
                 </div>
               </section>
 
@@ -351,13 +372,13 @@ export default function Home() {
           </section>
 
           {/*Main-Dishes Section*/}
-          <section className="px-6 md:px-20 mt-20 min-h-screen">
+          <section className="px-6 md:px-20 mt-20 min-h-[80vh]">
             <div className="w-full flex justify-between items-center gap-8">
               <h1 className="font-montserrat text-3xl md:text-5xl font-semibold text-yummy-terciary">Main Dishes</h1>
               <div className="flex gap-3 items-center cursor-pointer group">
                 <Link
                   className="text-yummy-terciary font-semibold text-xs md:text-base transition-colors duration-200 group-hover:text-yummy-primary"
-                  href={"/menu"}
+                  href={"/dashboard/menu"}
                 >
                   See all
                 </Link>
@@ -378,6 +399,12 @@ export default function Home() {
                         src={product.src}
                         description={product.description}
                         price={product.price}
+                        onSelect={() => {
+                          setSelectedProduct({
+                            productName: product.title,
+                            price: product.price,
+                          });
+                        }}
                       />
                     </div>
                   </div>
@@ -393,6 +420,7 @@ export default function Home() {
                       src={product.src}
                       description={product.description}
                       price={product.price}
+
                     />
                   </div>
                 ))}
@@ -423,7 +451,9 @@ export default function Home() {
               ref={reserveButtonRef}
               className="lg:w-1/8 py-6 rounded-full bg-yummy-primary font-semibold cursor-pointer transform transition animate-bounce"
             >
-              Make a reservation
+              <Link href={"/dashboard/reservations"}>
+                Make a reservation
+              </Link>
             </Button>
           </section>
 
