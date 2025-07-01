@@ -1,5 +1,6 @@
 "use client"
 import {
+    ArrowLeft,
     BadgeCheck,
     Bell,
     ChevronsUpDown,
@@ -28,6 +29,7 @@ import {
     useSidebar,
 } from "@/components/ui/sidebar"
 import { useRouter } from "next/navigation";
+import { useAuth } from "@/hooks/use-auth"
 
 export function NavUser({
     user,
@@ -40,6 +42,16 @@ export function NavUser({
 }) {
     const { isMobile } = useSidebar();
     const router = useRouter();
+    const { logout } = useAuth();
+
+    const LogoutFunction = () => {
+        logout();
+
+        setTimeout(() => {
+            window.location.href = "/"
+        }, 500)
+    }
+
     return (
         <SidebarMenu>
             <SidebarMenuItem>
@@ -78,14 +90,14 @@ export function NavUser({
                         </DropdownMenuLabel>
                         <DropdownMenuSeparator />
                         <DropdownMenuGroup>
-                            <DropdownMenuItem>
-                                <BadgeCheck />
-                                Account
+                            <DropdownMenuItem onClick={LogoutFunction}>
+                                <LogOut />
+                                Log Out
                             </DropdownMenuItem>
                         </DropdownMenuGroup>
                         <DropdownMenuSeparator />
-                        <DropdownMenuItem className="cu" onClick={() => window.location.href = "/"}>
-                            <LogOut />
+                        <DropdownMenuItem  onClick={() => window.location.href = "/"}>
+                            <ArrowLeft />
                             Back
                         </DropdownMenuItem>
                     </DropdownMenuContent>
