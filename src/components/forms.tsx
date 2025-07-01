@@ -33,12 +33,6 @@ const OrderForm = ({ onSuccess, product }: OrderFormProps) => {
     const [isSubmitting, setIsSubmitting] = useState(false);
     const router = useRouter();
 
-    function sendWhatsAppMessage(phone: string, message: string) {
-        const formatted = phone.replace(/[^0-9]/g, ""); // Remove espaços, + e parênteses
-        const url = `https://wa.me/${formatted}?text=${encodeURIComponent(message)}`;
-        window.open(url, "_blank");
-    }
-
     const userInfo = useMemo(() => {
         let name = "";
         let email = "";
@@ -95,12 +89,6 @@ const OrderForm = ({ onSuccess, product }: OrderFormProps) => {
                 });
 
                 closeForm();
-
-                sendWhatsAppMessage(
-                    userInfo.phone,
-                    `✅ Hello ${userInfo.name}, your order for the product "${data.productName}" totaling ${data.price} USD has been confirmed for ${data.date}. Thank you for using Yummy Restaurant! 🍽️`
-                );
-
 
             })
             .catch((err) => {
@@ -214,12 +202,6 @@ const ReservationForm = ({ onSuccess }: { onSuccess?: () => void }) => {
 
     const [isSubmitting, setIsSubmitting] = useState(false);
 
-    function sendWhatsAppMessage(phone: string, message: string) {
-        const formatted = phone.replace(/[^0-9]/g, ""); // Remove espaços, + e parênteses
-        const url = `https://wa.me/${formatted}?text=${encodeURIComponent(message)}`;
-        window.open(url, "_blank");
-    }
-
     const userInfo = useMemo(() => {
         let name = "";
         let email = "";
@@ -276,12 +258,6 @@ const ReservationForm = ({ onSuccess }: { onSuccess?: () => void }) => {
 
                 closeForm();
 
-                sendWhatsAppMessage(
-                    userInfo.phone,
-                    `✅ Hello ${userInfo.name}, your reservation for ${data.peopleCount} person(s) has been confirmed for ${data.date} at ${data.time}. Thank you for choosing Yummy Restaurant! 🥂`
-                );
-
-
             })
             .catch((err) => {
                 toast.error("Error creating reservation", {
@@ -336,14 +312,16 @@ const ReservationForm = ({ onSuccess }: { onSuccess?: () => void }) => {
             <input
                 type="date"
                 {...register("date")}
-                className="border rounded px-3 py-2"
+                className="border rounded px-3 py-2 w-full"
+                placeholder="Select a date"
             />
             {errors.date && <span className="text-red-500 text-xs">{errors.date.message}</span>}
 
             <input
                 type="time"
                 {...register("time")}
-                className="border rounded px-3 py-2"
+                className="border rounded px-3 py-2 w-full"
+                placeholder="Select a time"
             />
             {errors.time && <span className="text-red-500 text-xs">{errors.time.message}</span>}
 
