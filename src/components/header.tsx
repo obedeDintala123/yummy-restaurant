@@ -54,7 +54,7 @@ export const Header = ({ ...props }: React.ComponentPropsWithRef<"div">) => {
         { src: "/", name: "Home", icon: "" },
         { src: "#about", name: "About Us", icon: "" },
         { src: "/dashboard/menu", name: "Menu", icon: "" },
-        { src: "/services", name: "Services", icon: <ChevronDown size={24} strokeWidth={1.5} /> },
+        { src: "#", name: "Services", icon: <ChevronDown size={24} strokeWidth={1.5} /> },
     ];
 
     return (

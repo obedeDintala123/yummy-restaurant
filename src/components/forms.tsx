@@ -10,6 +10,7 @@ import { useMemo } from "react";
 import { ArrowLeft } from "lucide-react";
 import { apiRequest } from "@/lib/api";
 import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 
 const orderSchema = z.object({
@@ -30,6 +31,7 @@ type OrderFormProps = {
 
 const OrderForm = ({ onSuccess, product }: OrderFormProps) => {
     const [isSubmitting, setIsSubmitting] = useState(false);
+    const router = useRouter();
 
     const userInfo = useMemo(() => {
         let userId = null;
@@ -95,6 +97,11 @@ const OrderForm = ({ onSuccess, product }: OrderFormProps) => {
     };
 
     const closeForm = () => {
+
+        setTimeout(() => {
+            router.push("/dashboard/orders");
+        }, 900);
+
         if (onSuccess) {
             setTimeout(() => {
                 onSuccess();
