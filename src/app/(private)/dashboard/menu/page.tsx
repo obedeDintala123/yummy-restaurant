@@ -41,7 +41,9 @@ export default function Menu() {
             ) : (
                 <div>
                     {loading ? (
-                        <div className="mt-10 text-center text-gray-400">Loading products...</div>
+                        <div className="min-h-[60vh] flex items-center justify-center">
+                            <div className="animate-spin rounded-full h-10 w-10 border-4 border-yummy-primary border-t-transparent"></div>
+                        </div>
                     ) : (
                         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mt-6 w-full">
                             {products.length > 0 ? (

@@ -23,11 +23,11 @@ export default function Reservations() {
                 .finally(() => setLoading(false));
         };
 
-        fetchReservations(); 
+        fetchReservations();
 
-        const interval = setInterval(fetchReservations, 1000); 
+        const interval = setInterval(fetchReservations, 1000);
 
-        return () => clearInterval(interval); 
+        return () => clearInterval(interval);
     }, []);
 
 
@@ -59,8 +59,8 @@ export default function Reservations() {
                         </div>
                         {
                             loading ? (
-                                <div className="w-full flex justify-center py-10" >
-                                    <span className="text-gray-400 text-sm">Loading reservations...</span>
+                                <div className="min-h-[60vh] flex items-center justify-center">
+                                    <div className="animate-spin rounded-full h-10 w-10 border-4 border-yummy-primary border-t-transparent"></div>
                                 </div>
                             ) : (
                                 <ReservationCardList

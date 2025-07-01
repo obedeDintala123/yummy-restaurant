@@ -1,10 +1,11 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { getCookie } from "cookies-next";
 import { jwtDecode } from "jwt-decode";
 import { ProductCard } from "@/components/cards";
 import { Button } from "@/components/ui/button";
+import { apiRequest } from "@/lib/api";
 
 type Product = {
     title: string;
@@ -15,35 +16,23 @@ type Product = {
 
 type Order = {
     id: string;
-    items: string[];
-    total: number;
-    status: string;
+    productName: string;
+    date: string;
+    price: number;
 };
 
 type Reservation = {
     id: string;
     date: string;
-    people: number;
-    status: string;
+    peopleCount: number;
 };
 
-const mainDishes: Product[] = [
-    { title: "Spaghetti Carbonara", src: "/product1.jpg", description: "Classic Italian pasta.", price: 32 },
-    { title: "Grilled Salmon", src: "/product2.jpg", description: "Fresh salmon with herbs.", price: 45 },
-    { title: "Chicken Parmesan", src: "/product3.jpg", description: "Breaded chicken with cheese.", price: 38 },
-];
-
-const orders: Order[] = [
-    { id: "ORD-001", items: ["Spaghetti Carbonara", "Grilled Salmon"], total: 77, status: "Delivered" },
-    { id: "ORD-002", items: ["Chicken Parmesan"], total: 38, status: "In Progress" },
-];
-
-const reservations: Reservation[] = [
-    { id: "RES-001", date: "2025-06-28 19:00", people: 2, status: "Confirmed" },
-    { id: "RES-002", date: "2025-07-01 20:30", people: 4, status: "Pending" },
-];
-
 export default function DashboardPage() {
+    const [mainDishes, setMainDishes] = useState<Product[]>([]);
+    const [orders, setOrders] = useState<Order[]>([]);
+    const [reservation, setReservation] = useState<Reservation | null>(null);
+    const [loading, setLoading] = useState(true);
+
     const user = useMemo(() => {
         try {
             const tokenData = getCookie("auth-token");
@@ -56,31 +45,63 @@ export default function DashboardPage() {
                     };
                 }
             }
-        } catch {
-            
+        } catch { }
+    }, []);
+
+    useEffect(() => {
+        async function fetchDashboardData() {
+            try {
+                const data = await apiRequest("/api/dashboard");
+                setMainDishes(data.menus || []);
+                setOrders(data.recentOrders || []);
+                setReservation(data.recentReservation || null);
+            } catch (error: any) {
+                console.error("Erro ao buscar dados do dashboard:", error.message);
+            } finally {
+                setLoading(false); 
+            }
         }
 
+        fetchDashboardData();
     }, []);
+
+    if (loading) {
+        return (
+            <div className="h-screen flex items-center justify-center">
+                <div className="animate-spin rounded-full h-10 w-10 border-4 border-yummy-primary border-t-transparent"></div>
+            </div>
+        );
+    }
 
     return (
         <div className="px-4 md:px-10 my-6 text-yummy-terciary">
             <h1 className="text-3xl font-bold mb-2">Hello, {user?.name} 👋</h1>
-            <p className="text-gray-600 mb-8">Check your reservations, orders, and suggestions for your next meal!</p>
+            <p className="text-gray-600 mb-8">
+                Check your reservations, orders, and suggestions for your next meal!
+            </p>
 
             {/* Next Reservation */}
             <section className="mb-10">
                 <h2 className="text-xl font-semibold mb-2">Your next reservation</h2>
-                {reservations.length > 0 ? (
+                {reservation ? (
                     <div className="bg-green-50 border border-green-200 rounded-lg p-4 mb-4">
                         <div className="flex flex-col md:flex-row md:items-center md:justify-between">
                             <div>
                                 <span className="block font-medium text-green-800">
-                                    {reservations[0].date}
+                                    {new Date(reservation.date).toLocaleDateString("en-US", {
+                                        year: "numeric",
+                                        month: "short",
+                                        day: "2-digit",
+                                        hour: "2-digit",
+                                        minute: "2-digit"
+                                    })}
                                 </span>
                                 <span className="block text-sm text-green-700">
-                                    {reservations[0].people} people • Status:
-                                    <span className={`ml-1 font-semibold ${reservations[0].status === "Confirmed" ? "text-green-700" : "text-yellow-700"}`}>
-                                        {reservations[0].status}
+                                    {reservation.peopleCount} people • Status:
+                                    <span
+                                        className="ml-1 font-semibold text-green-700"
+                                    >
+                                        Confirmed
                                     </span>
                                 </span>
                             </div>
@@ -90,9 +111,13 @@ export default function DashboardPage() {
                         </div>
                     </div>
                 ) : (
-                    <div className="text-gray-500 mb-4">You haven't made any reservations yet.</div>
+                    <div className="text-gray-500 mb-4">
+                        You haven't made any reservations yet.
+                    </div>
                 )}
-                <Button className="w-full md:w-auto bg-yummy-primary">Make a new reservation</Button>
+                <Button className="w-full md:w-auto bg-yummy-primary">
+                    Make a new reservation
+                </Button>
             </section>
 
             {/* Recent Orders */}
@@ -101,24 +126,50 @@ export default function DashboardPage() {
                 {orders.length > 0 ? (
                     <div className="space-y-3">
                         {orders.map((order) => (
-                            <div key={order.id} className="bg-white border rounded-lg p-4 flex flex-col md:flex-row md:items-center md:justify-between">
-                                <div>
-                                    <span className="font-medium">Order #{order.id}</span>
-                                    <div className="text-sm text-gray-600">{order.items.join(", ")}</div>
+                            <div
+                                key={order.id}
+                                className="bg-white border rounded-lg p-4 flex flex-col md:flex-row md:items-center md:justify-between"
+                            >
+                                <div className="flex-1">
+                                    <div className="flex items-center gap-2 mb-1">
+                                        <span className="font-semibold text-yummy-primary text-base">Order #{order.id}</span>
+                                        <span className="text-xs text-gray-400">
+                                            {new Date(order.date).toLocaleDateString("en-US", {
+                                                year: "numeric",
+                                                month: "short",
+                                                day: "2-digit",
+                                                hour: "2-digit",
+                                                minute: "2-digit"
+                                            })}
+                                        </span>
+                                    </div>
+
+                                    <div className="flex flex-col gap-2 mt-3">
+                                        <span className="font-medium text-yummy-terciary text-lg">{order.productName}</span>
+                                        <span className="font-semibold text-yummy-terciary text-base">
+                                            ${order.price}
+                                        </span>
+                                    </div>
                                 </div>
                                 <div className="flex items-center gap-4 mt-2 md:mt-0">
-                                    <span className="font-semibold text-yummy-primary">${order.total.toFixed(2)}</span>
-                                    <span className={`px-2 py-1 rounded text-xs ${order.status === "Delivered" ? "bg-green-100 text-green-700" : "bg-yellow-100 text-yellow-700"}`}>
-                                        {order.status}
+
+                                    <span
+                                        className="ml-1 font-semibold text-green-700"
+                                    >
+                                        Delivered
                                     </span>
                                 </div>
                             </div>
                         ))}
                     </div>
                 ) : (
-                    <div className="text-gray-500 mb-4">You haven't placed any orders yet.</div>
+                    <div className="text-gray-500 mb-4">
+                        You haven't placed any orders yet.
+                    </div>
                 )}
-                <Button className="w-full md:w-auto mt-4 bg-yummy-primary">Make a new order</Button>
+                <Button className="w-full md:w-auto mt-4 bg-yummy-primary">
+                    Make a new order
+                </Button>
             </section>
 
             {/* Dish Suggestions */}

@@ -57,7 +57,9 @@ export default function Orders() {
             </div>
 
             {loading ? (
-              <div className="text-center text-gray-500">Loading...</div>
+              <div className="min-h-[60vh] flex items-center justify-center">
+                <div className="animate-spin rounded-full h-10 w-10 border-4 border-yummy-primary border-t-transparent"></div>
+              </div>
             ) : (
               <OrderCardList orders={orders} onViewDetails={(res) => alert(`Order ID: ${res.id}`)} />
             )}
