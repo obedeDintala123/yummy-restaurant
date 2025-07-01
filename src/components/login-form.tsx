@@ -35,7 +35,7 @@ export function LoginForm() {
                 style: { color: "#16a34a" },
                 description: (
                     <span className="text-black">
-                        Welcome back, ${data.email}!
+                        Welcome back, {data.email}!
                     </span>
                 ),
             });
