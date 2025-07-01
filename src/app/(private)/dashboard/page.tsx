@@ -6,6 +6,7 @@ import { jwtDecode } from "jwt-decode";
 import { ProductCard } from "@/components/cards";
 import { Button } from "@/components/ui/button";
 import { apiRequest } from "@/lib/api";
+import Link from "next/link";
 
 type Product = {
     title: string;
@@ -58,7 +59,7 @@ export default function DashboardPage() {
             } catch (error: any) {
                 console.error("Erro ao buscar dados do dashboard:", error.message);
             } finally {
-                setLoading(false); 
+                setLoading(false);
             }
         }
 
@@ -115,9 +116,12 @@ export default function DashboardPage() {
                         You haven't made any reservations yet.
                     </div>
                 )}
-                <Button className="w-full md:w-auto bg-yummy-primary">
-                    Make a new reservation
-                </Button>
+
+                <Link href="/dashboard/reservations" className="w-full md:w-auto">
+                    <Button className="w-full md:w-auto bg-yummy-primary">
+                        View all reservations
+                    </Button>
+                </Link>
             </section>
 
             {/* Recent Orders */}
@@ -167,9 +171,12 @@ export default function DashboardPage() {
                         You haven't placed any orders yet.
                     </div>
                 )}
-                <Button className="w-full md:w-auto mt-4 bg-yummy-primary">
-                    Make a new order
-                </Button>
+               
+                <Link href="/dashboard/orders">
+                    <Button className="w-full md:w-auto bg-yummy-primary mt-4">
+                        View all orders
+                    </Button>
+                </Link>
             </section>
 
             {/* Dish Suggestions */}
