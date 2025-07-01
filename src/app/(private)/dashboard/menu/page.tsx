@@ -45,28 +45,30 @@ export default function Menu() {
                             <div className="animate-spin rounded-full h-10 w-10 border-4 border-yummy-primary border-t-transparent"></div>
                         </div>
                     ) : (
-                        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mt-6 w-full">
-                            {products.length > 0 ? (
-                                products.map((product, index) => (
-                                    <ProductCard
-                                        key={index}
-                                        title={product.title}
-                                        src={product.src}
-                                        description={product.description}
-                                        price={product.price}
-                                        onSelect={() =>
-                                            setSelectedProduct({
-                                                productName: product.title,
-                                                price: product.price,
-                                            })
-                                        }
-                                    />
-                                ))
-                            ) : (
-                                <div className="col-span-full text-center text-gray-400">
-                                    No products available
-                                </div>
-                            )}
+                        <div className="overflow-y-auto h-[76vh] mt-5">
+                            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mt-6 w-full">
+                                {products.length > 0 ? (
+                                    products.map((product, index) => (
+                                        <ProductCard
+                                            key={index}
+                                            title={product.title}
+                                            src={product.src}
+                                            description={product.description}
+                                            price={product.price}
+                                            onSelect={() =>
+                                                setSelectedProduct({
+                                                    productName: product.title,
+                                                    price: product.price,
+                                                })
+                                            }
+                                        />
+                                    ))
+                                ) : (
+                                    <div className="col-span-full text-center text-gray-400">
+                                        No products available
+                                    </div>
+                                )}
+                            </div>
                         </div>
                     )}
                 </div>

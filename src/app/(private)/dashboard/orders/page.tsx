@@ -61,7 +61,9 @@ export default function Orders() {
                 <div className="animate-spin rounded-full h-10 w-10 border-4 border-yummy-primary border-t-transparent"></div>
               </div>
             ) : (
-              <OrderCardList orders={orders} onViewDetails={(res) => alert(`Order ID: ${res.id}`)} />
+              <div className="overflow-y-auto h-[70vh] mt-5">
+                <OrderCardList orders={orders} onViewDetails={(res) => alert(`Order ID: ${res.id}`)} />
+              </div>
             )}
           </div>
         )
