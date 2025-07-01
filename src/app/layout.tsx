@@ -5,8 +5,8 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 import "./globals.css";
 
 const montserrat = Montserrat({
-  variable: "--font-montserrat",
   subsets: ["latin"],
+  display: "swap",
 })
 
 export const metadata: Metadata = {
@@ -27,7 +27,6 @@ export const metadata: Metadata = {
       },
     ],
   },
-
 
   keywords: [
     "restaurant",
@@ -81,7 +80,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${montserrat.variable} antialiased`}
+        className={`${montserrat.className} antialiased`}
       >
         {children}
 

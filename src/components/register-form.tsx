@@ -36,7 +36,7 @@ export function RegisterForm() {
     async function onSubmit(data: RegisterFormValues) {
         setFormError(null);
 
-        const fullPhoneNumber = `${countryCode}${data.phone}`;
+        const fullPhoneNumber = `${countryCode}${data.phone}`.replace(/\D/g, '');
 
         try {
             await registerUser(
@@ -149,14 +149,12 @@ export function RegisterForm() {
                             <option value="+351">+351 (PT)</option>
                             <option value="+33">+33 (FR)</option>
                             <option value="+1">+1 (US)</option>
-                            {/* Adicione outros se quiser */}
                         </select>
 
                         <input
                             type="text"
                             {...register("phone")}
                             className="w-full border rounded px-3 py-2"
-                            placeholder="Número do WhatsApp"
                             disabled={loading}
                         />
                     </div>
