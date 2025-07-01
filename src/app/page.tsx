@@ -294,15 +294,12 @@ export default function Home() {
                 <h1 className="text-3xl md:text-7xl font-semibold leading-12 md:leading-24 text-yummy-terciary hero-title text-center md:text-start ">Enjoy Your Healthy Delicious Food</h1>
 
                 <div className="flex justify-center md:justify-start gap-10 hero-button">
-                  <Button className="w-2/6 py-6 rounded-full bg-yummy-primary font-semibold cursor-pointer text-xs md:text-sm ">
-                    <Link href={"/dashboard/menu"}>
-                      Menu
-                    </Link>
+                  <Button className="w-2/6 py-6 rounded-full bg-yummy-primary font-semibold cursor-pointer text-xs md:text-sm" onClick={() => router.push("/dashboard/menu")}>
+                    Menu
                   </Button>
-                  <Button variant={"outline"} className="bg-white w-2/6 py-6 rounded-full text-yummy-terciary font-semibold text-xs md:text-sm cursor-pointer">
-                    <Link href={"/dashboard/reservations"}>
-                      Book a table
-                    </Link>
+
+                  <Button variant={"outline"} className="bg-white w-2/6 py-6 rounded-full text-yummy-terciary font-semibold text-xs md:text-sm cursor-pointer" onClick={() => router.push("/dashboard/reservations")}>
+                    Book a table
                   </Button>
                 </div>
               </section>
@@ -375,13 +372,13 @@ export default function Home() {
           <section className="px-6 md:px-20 mt-20 min-h-[80vh]">
             <div className="w-full flex justify-between items-center gap-8">
               <h1 className="font-montserrat text-3xl md:text-5xl font-semibold text-yummy-terciary">Main Dishes</h1>
-              <div className="flex gap-3 items-center cursor-pointer group">
-                <Link
-                  className="text-yummy-terciary font-semibold text-xs md:text-base transition-colors duration-200 group-hover:text-yummy-primary"
-                  href={"/dashboard/menu"}
+              <div className="flex items-center cursor-pointer group">
+                <Button
+                  className="bg-none text-yummy-terciary font-semibold text-xs md:text-base transition-colors duration-200 group-hover:text-yummy-primary"
+                  onClick={() => router.push("/dashboard/menu")}
                 >
                   See all
-                </Link>
+                </Button>
                 <ArrowRight
                   {...screen === "mobile" ? { size: 16 } : { size: 24 }}
                   className="text-xs transition-transform duration-200 group-hover:translate-x-1 stroke-[#3a2d2d] group-hover:stroke-yummy-primary"
@@ -450,10 +447,9 @@ export default function Home() {
             <Button
               ref={reserveButtonRef}
               className="lg:w-1/8 py-6 rounded-full bg-yummy-primary font-semibold cursor-pointer transform transition animate-bounce"
+              onClick={() => router.push("/dashboard/reservations")}
             >
-              <Link href={"/dashboard/reservations"}>
-                Make a reservation
-              </Link>
+              Make a reservation
             </Button>
           </section>
 
