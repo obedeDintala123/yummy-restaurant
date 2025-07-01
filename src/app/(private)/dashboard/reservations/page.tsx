@@ -3,10 +3,12 @@
 import { ReservationCardList } from "@/components/cards";
 import { Plus } from "lucide-react";
 import { useScreenType } from "@/hooks/screenType";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import { apiRequest } from "@/lib/api";
 import { ReservationForm } from "@/components/forms";
 import { Toaster } from "@/components/ui/sonner";
+import { getCookie } from "cookies-next";
+import { jwtDecode } from "jwt-decode";
 
 export default function Reservations() {
 
@@ -16,9 +18,25 @@ export default function Reservations() {
     const [showReservationForm, setShowReservationForm] = useState(false);
     const [loading, setLoading] = useState(true);
 
+    const user = useMemo(() => {
+        try {
+            const tokenData = getCookie("auth-token");
+            if (tokenData && typeof tokenData === "string") {
+                const parsed = JSON.parse(tokenData);
+                if (parsed.token) {
+                    const decoded: any = jwtDecode(parsed.token);
+                    return {
+                        id: decoded.userId || "",
+                        name: decoded.name || "",
+                    };
+                }
+            }
+        } catch { }
+    }, []);
+
     useEffect(() => {
         const fetchReservations = () => {
-            apiRequest("/api/reservations")
+            apiRequest(`/api/reservations/${user?.id}`)
                 .then(setReservations)
                 .finally(() => setLoading(false));
         };

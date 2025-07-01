@@ -3,11 +3,13 @@
 import { OrderCardList } from "@/components/cards";
 import { Plus } from "lucide-react";
 import { useScreenType } from "@/hooks/screenType";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { apiRequest } from "@/lib/api";
 import { OrderForm } from "@/components/forms";
 import { Toaster } from "@/components/ui/sonner";
 import { useRouter } from "next/navigation";
+import { getCookie } from "cookies-next";
+import { jwtDecode } from "jwt-decode";
 
 export default function Orders() {
   const router = useRouter();
@@ -16,9 +18,31 @@ export default function Orders() {
   const [orders, setOrders] = useState<any[]>([]);
   const screen = useScreenType();
 
+  const user = useMemo(() => {
+    try {
+      const tokenData = getCookie("auth-token");
+      if (tokenData && typeof tokenData === "string") {
+        const parsed = JSON.parse(tokenData);
+        if (parsed.token) {
+          const decoded: any = jwtDecode(parsed.token);
+          return {
+            id: decoded.userId || "", // cuidado: no seu backend você usou userId, não id
+            name: decoded.name || "",
+          };
+        }
+      }
+    } catch (error) {
+      console.error("Token decode error:", error);
+    }
+    return null;
+  }, []);
+
+
   useEffect(() => {
+    if (!user?.id) return;
+
     const fetchOrders = () => {
-      apiRequest("/api/orders")
+      apiRequest(`/api/orders/${user.id}`)
         .then(setOrders)
         .finally(() => setLoading(false));
     };
@@ -26,9 +50,9 @@ export default function Orders() {
     fetchOrders();
 
     const interval = setInterval(fetchOrders, 1000);
-
     return () => clearInterval(interval);
-  }, []);
+  }, [user?.id]);
+
 
   return (
     <div className="px-4 md:px-10 my-10 w-full">

@@ -42,6 +42,7 @@ export default function DashboardPage() {
                 if (parsed.token) {
                     const decoded: any = jwtDecode(parsed.token);
                     return {
+                        id: decoded.userId || "",
                         name: decoded.name || "",
                     };
                 }
@@ -52,7 +53,7 @@ export default function DashboardPage() {
     useEffect(() => {
         async function fetchDashboardData() {
             try {
-                const data = await apiRequest("/api/dashboard");
+                const data = await apiRequest(`/api/dashboard`);
                 setMainDishes(data.menus || []);
                 setOrders(data.recentOrders || []);
                 setReservation(data.recentReservation || null);
@@ -171,7 +172,7 @@ export default function DashboardPage() {
                         You haven't placed any orders yet.
                     </div>
                 )}
-               
+
                 <Link href="/dashboard/orders">
                     <Button className="w-full md:w-auto bg-yummy-primary mt-4">
                         View all orders
