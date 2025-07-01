@@ -33,19 +33,31 @@ const OrderForm = ({ onSuccess, product }: OrderFormProps) => {
     const [isSubmitting, setIsSubmitting] = useState(false);
     const router = useRouter();
 
+    function sendWhatsAppMessage(phone: string, message: string) {
+        const formatted = phone.replace(/[^0-9]/g, ""); // Remove espaços, + e parênteses
+        const url = `https://wa.me/${formatted}?text=${encodeURIComponent(message)}`;
+        window.open(url, "_blank");
+    }
+
     const userInfo = useMemo(() => {
+        let name = "";
+        let email = "";
         let userId = null;
+        let phone = "";
         try {
             const tokenData = getCookie("auth-token");
             if (tokenData && typeof tokenData === "string") {
                 const parsed = JSON.parse(tokenData);
                 if (parsed.token) {
                     const decoded: any = jwtDecode(parsed.token);
+                    name = decoded.name || "";
+                    email = decoded.email || "";
                     userId = decoded.userId;
+                    phone = decoded.phone || ""; // ADICIONADO
                 }
             }
         } catch { }
-        return { userId };
+        return { name, email, userId, phone }; // ADICIONADO
     }, []);
 
     const {
@@ -81,7 +93,15 @@ const OrderForm = ({ onSuccess, product }: OrderFormProps) => {
                     style: { color: "#16a34a" },
                     duration: 1000,
                 });
+
                 closeForm();
+
+                sendWhatsAppMessage(
+                    userInfo.phone,
+                    `✅ Hello ${userInfo.name}, your order for the product "${data.productName}" totaling ${data.price} USD has been confirmed for ${data.date}. Thank you for using Yummy Restaurant! 🍽️`
+                );
+
+
             })
             .catch((err) => {
                 toast.error("Error creating order", {
@@ -193,10 +213,17 @@ const ReservationForm = ({ onSuccess }: { onSuccess?: () => void }) => {
 
     const [isSubmitting, setIsSubmitting] = useState(false);
 
+    function sendWhatsAppMessage(phone: string, message: string) {
+        const formatted = phone.replace(/[^0-9]/g, ""); // Remove espaços, + e parênteses
+        const url = `https://wa.me/${formatted}?text=${encodeURIComponent(message)}`;
+        window.open(url, "_blank");
+    }
+
     const userInfo = useMemo(() => {
         let name = "";
         let email = "";
         let userId = null;
+        let phone = "";
         try {
             const tokenData = getCookie("auth-token");
             if (tokenData && typeof tokenData === "string") {
@@ -206,11 +233,13 @@ const ReservationForm = ({ onSuccess }: { onSuccess?: () => void }) => {
                     name = decoded.name || "";
                     email = decoded.email || "";
                     userId = decoded.userId;
+                    phone = decoded.phone || ""; // ADICIONADO
                 }
             }
         } catch { }
-        return { name, email, userId };
+        return { name, email, userId, phone }; // ADICIONADO
     }, []);
+
 
     const {
         register,
@@ -245,6 +274,12 @@ const ReservationForm = ({ onSuccess }: { onSuccess?: () => void }) => {
                 });
 
                 closeForm();
+
+                sendWhatsAppMessage(
+                    userInfo.phone,
+                    `✅ Hello ${userInfo.name}, your reservation for ${data.peopleCount} person(s) has been confirmed for ${data.date} at ${data.time}. Thank you for choosing Yummy Restaurant! 🥂`
+                );
+
 
             })
             .catch((err) => {

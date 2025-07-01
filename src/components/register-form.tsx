@@ -22,6 +22,8 @@ type RegisterFormValues = z.infer<typeof registerSchema>;
 export function RegisterForm() {
     const { register: registerUser, loading, error } = useAuth();
     const [formError, setFormError] = useState<string | null>(null);
+    const [countryCode, setCountryCode] = useState("+244"); // Angola como padrão
+
 
     const {
         register,
@@ -33,23 +35,28 @@ export function RegisterForm() {
 
     async function onSubmit(data: RegisterFormValues) {
         setFormError(null);
+
+        const fullPhoneNumber = `${countryCode}${data.phone}`;
+
         try {
             await registerUser(
                 data.name,
                 data.email,
                 data.password,
                 data.address,
-                data.phone,
+                fullPhoneNumber,
                 data.creditCard
             );
+
             toast.success("Registration successful!", {
                 style: { color: "#16a34a" },
                 description: (
                     <span className="text-black">
                         Welcome, {data.name}!
                     </span>
-                )
+                ),
             });
+
         } catch (err: any) {
             const message = err?.message || error || "Registration failed";
             setFormError("Registration failed");
@@ -63,6 +70,7 @@ export function RegisterForm() {
             });
         }
     }
+
 
     return (
         <form
@@ -128,16 +136,36 @@ export function RegisterForm() {
             <div className="flex flex-col md:flex-row gap-4">
                 <div className="flex-1">
                     <label className="block text-sm font-medium mb-1">Phone</label>
-                    <input
-                        type="text"
-                        {...register("phone")}
-                        className="w-full border rounded px-3 py-2"
-                        disabled={loading}
-                    />
+
+                    <div className="flex gap-2">
+                        <select
+                            value={countryCode}
+                            onChange={(e) => setCountryCode(e.target.value)}
+                            disabled={loading}
+                            className="border rounded px-2 py-2 bg-white text-sm"
+                        >
+                            <option value="+244">+244 (AO)</option>
+                            <option value="+55">+55 (BR)</option>
+                            <option value="+351">+351 (PT)</option>
+                            <option value="+33">+33 (FR)</option>
+                            <option value="+1">+1 (US)</option>
+                            {/* Adicione outros se quiser */}
+                        </select>
+
+                        <input
+                            type="text"
+                            {...register("phone")}
+                            className="w-full border rounded px-3 py-2"
+                            placeholder="Número do WhatsApp"
+                            disabled={loading}
+                        />
+                    </div>
+
                     {errors.phone && (
                         <span className="text-red-500 text-xs">{errors.phone.message}</span>
                     )}
                 </div>
+
                 <div className="flex-1">
                     <label className="block text-sm font-medium mb-1">Credit Card</label>
                     <input
