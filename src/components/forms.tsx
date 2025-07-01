@@ -178,7 +178,8 @@ const OrderForm = ({ onSuccess, product }: OrderFormProps) => {
             <input
                 type="date"
                 {...register("date")}
-                className="border rounded px-3 py-2"
+                className="border rounded px-3 py-2 w-full"
+                placeholder="Select a date"
             />
             {errors.date && (
                 <span className="text-red-500 text-xs">{errors.date.message}</span>
