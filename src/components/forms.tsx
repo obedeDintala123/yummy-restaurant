@@ -108,7 +108,7 @@ const OrderForm = ({ onSuccess, product }: OrderFormProps) => {
 
         setTimeout(() => {
             router.push("/dashboard/orders");
-        }, 900);
+        }, 800);
 
         if (onSuccess) {
             setTimeout(() => {
