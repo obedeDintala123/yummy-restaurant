@@ -163,11 +163,14 @@ const OrderForm = ({ onSuccess, product }: OrderFormProps) => {
                 <span className="text-red-500 text-xs">{errors.price.message}</span>
             )}
 
+            <label htmlFor="date" className="text-sm text-gray-600 mb-1 block">
+                Select a date
+            </label>
             <input
+                id="date"
                 type="date"
                 {...register("date")}
                 className="border rounded px-3 py-2 w-full"
-                placeholder="Select a date"
             />
             {errors.date && (
                 <span className="text-red-500 text-xs">{errors.date.message}</span>
@@ -309,21 +312,31 @@ const ReservationForm = ({ onSuccess }: { onSuccess?: () => void }) => {
             />
             {errors.email && <span className="text-red-500 text-xs">{errors.email.message}</span>}
 
+            <label htmlFor="date" className="text-sm text-gray-600 mb-1 block">
+                Select a date
+            </label>
             <input
+                id="date"
                 type="date"
                 {...register("date")}
                 className="border rounded px-3 py-2 w-full"
-                placeholder="Select a date"
             />
-            {errors.date && <span className="text-red-500 text-xs">{errors.date.message}</span>}
+            {errors.date && (
+                <span className="text-red-500 text-xs">{errors.date.message}</span>
+            )}
 
+            <label htmlFor="time" className="text-sm text-gray-600 mb-1 block mt-4">
+                Select a time
+            </label>
             <input
+                id="time"
                 type="time"
                 {...register("time")}
                 className="border rounded px-3 py-2 w-full"
-                placeholder="Select a time"
             />
-            {errors.time && <span className="text-red-500 text-xs">{errors.time.message}</span>}
+            {errors.time && (
+                <span className="text-red-500 text-xs">{errors.time.message}</span>
+            )}
 
             <input
                 type="number"
