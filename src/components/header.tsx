@@ -59,6 +59,7 @@ export const Header = ({ ...props }: React.ComponentPropsWithRef<"div">) => {
 
     return (
         <header className="flex items-center justify-between w-full p-6 md:px-20 md:py-10" {...props}>
+
             <Image
                 src={"/yummy-logo.svg"}
                 alt="Logo"

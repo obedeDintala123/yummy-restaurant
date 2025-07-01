@@ -7,7 +7,7 @@ import { HeroSlider } from "@/components/hero-slider";
 import { Button } from "@/components/ui/button";
 import { ProductCard } from "@/components/cards";
 import Image from "next/image";
-import Link from "next/link";
+import { PageLoader } from "@/components/loader";
 import { useScreenType } from "@/hooks/screenType";
 import {
   Leaf,
@@ -33,6 +33,8 @@ export default function Home() {
     price: number;
   } | null>(null);
   const router = useRouter();
+  const [pageLoading, setPageLoading] = useState(false);
+
 
   const screen = useScreenType();
   const headerRef = useRef<HTMLDivElement>(null);
@@ -270,6 +272,14 @@ export default function Home() {
     { title: "Social", options: ["Instagram", "Facebook", "TikTok"] },
   ];
 
+  const pageLoader = (href: string) => {
+    setPageLoading(true);
+    setTimeout(() => {
+      router.push(href);
+    }, 1000);
+  };
+
+
   return (
     <div className="relative overflow-x-hidden">
 
@@ -277,6 +287,13 @@ export default function Home() {
         <div className="fixed inset-0 flex items-center justify-center bg-white z-50 transition-all">
           <Loader />
         </div>
+      )}
+
+      {pageLoading && (
+        <div className="fixed inset-0 flex items-center justify-center backdrop-blur-sm bg-white/60 z-50 transition-all">
+          <Loader />
+        </div>
+
       )}
 
       {/* Conteúdo da página */}
@@ -294,11 +311,11 @@ export default function Home() {
                 <h1 className="text-3xl md:text-7xl font-semibold leading-12 md:leading-24 text-yummy-terciary hero-title text-center md:text-start ">Enjoy Your Healthy Delicious Food</h1>
 
                 <div className="flex justify-center md:justify-start gap-10 hero-button">
-                  <Button className="w-2/6 py-6 rounded-full bg-yummy-primary font-semibold cursor-pointer text-xs md:text-sm" onClick={() => router.push("/dashboard/menu")}>
+                  <Button className="w-2/6 py-6 rounded-full bg-yummy-primary font-semibold cursor-pointer text-xs md:text-sm" onClick={() => pageLoader("/dashboard/menu")}>
                     Menu
                   </Button>
 
-                  <Button variant={"outline"} className="bg-white w-2/6 py-6 rounded-full text-yummy-terciary font-semibold text-xs md:text-sm cursor-pointer" onClick={() => router.push("/dashboard/reservations")}>
+                  <Button variant={"outline"} className="bg-white w-2/6 py-6 rounded-full text-yummy-terciary font-semibold text-xs md:text-sm cursor-pointer" onClick={() => pageLoader("/dashboard/reservations")}>
                     Book a table
                   </Button>
                 </div>
@@ -375,7 +392,7 @@ export default function Home() {
               <div className="flex items-center cursor-pointer group">
                 <Button
                   className="bg-none text-yummy-terciary font-semibold text-xs md:text-base transition-colors duration-200 group-hover:text-yummy-primary"
-                  onClick={() => router.push("/dashboard/menu")}
+                  onClick={() => pageLoader("/dashboard/menu")}
                 >
                   See all
                 </Button>
@@ -447,7 +464,7 @@ export default function Home() {
             <Button
               ref={reserveButtonRef}
               className="lg:w-1/8 py-6 rounded-full bg-yummy-primary font-semibold cursor-pointer transform transition animate-bounce"
-              onClick={() => router.push("/dashboard/reservations")}
+              onClick={() => pageLoader("/dashboard/reservations")}
             >
               Make a reservation
             </Button>
