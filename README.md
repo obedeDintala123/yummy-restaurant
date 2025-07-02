@@ -39,7 +39,7 @@ npm install
 
 # 4. Crie o arquivo .env
 cp .env.example .env
-# (Preencha as variáveis, como DATABASE_URL e JWT_SECRET)
+# (Preencha as variáveis, como NEXT_PUBLIC_API_URL)
 
 # 5. Rode as migrações
 npx prisma migrate dev
