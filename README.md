@@ -9,8 +9,6 @@ Aplicação web moderna desenvolvida para facilitar **reservas** e **pedidos onl
 - 📆 Reserva de mesas com data e hora
 - 🛒 Pedidos personalizados de pratos
 - 🔐 Autenticação e registro de usuários
-- 📱 Integração com WhatsApp (confirmação)
-- 💌 Notificação por e-mail (opcional)
 - 🎨 Interface intuitiva e responsiva
 
 ## 🧪 Tecnologias Utilizadas
@@ -22,6 +20,7 @@ Aplicação web moderna desenvolvida para facilitar **reservas** e **pedidos onl
 - 🍪 Cookies para autenticação JWT
 
 ### Backend
+
 - ⚡ **Fastify** (API)
 - 🔐 **JWT** para autenticação
 - 🐘 **PostgreSQL** (via Prisma ORM)
